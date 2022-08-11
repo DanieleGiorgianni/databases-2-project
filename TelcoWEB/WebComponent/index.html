@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Telco - Home Page</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+	<h1>Telco Home Page</h1>
+	<div class="main-div">
+		<p>
+			<!-- 
+				method="GET": to send the form data as an HTTP GET request to the server 
+				action="GoToRegistration": specifies relative URL of the servlet which is 
+										   responsible for handling data got from this form
+			-->
+			<form action="GoToRegistration" method="GET">
+				<input type="submit" value="Registration">
+			</form>
+		</p>
+		<p>
+			<form action="GoToLogin" method="GET">
+				<input type="submit" value="Login">
+			</form>
+		</p>
+	</div>
+</body>
+</html>

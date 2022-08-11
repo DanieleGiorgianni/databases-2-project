@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Telco - Registration Page</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+	<h1>Telco Registration Page</h1>
+	<div>
+		<h2>Register here!</h2>
+		<!-- 
+			th:action defines the URL to which the form data will be sent.
+			In Thymeleaf, URLs can be declared using the @{...} operator, 
+			which allows the path to be resolved based on context.
+		-->
+		<form th:action="@{/Registration}" method="POST">
+			<p>Username: <input type="text" name="username" required></p>
+			<p>Email: <input type="text" name="email" required></p>
+			<p>Password: <input type="password" name="password" required></p>
+			<p><input type="submit" value="Registration"></p>
+			<!--
+				th:text replaces the static content with the dynamic content produced by the expression.
+				Variable expression ${...} evaluates to the value of the scope variable registrationMsg.
+			 -->
+			<p th:text="${registrationMsg}"></p>
+		</form>
+	</div>
+</body>
+</html>

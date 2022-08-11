@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+h1 {
+	border: 1px solid black;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.main-div {
+	border: 2px solid black;
+	border-radius: 15px;
+	background-color: lightsteelblue;
+	text-align: center;
+}

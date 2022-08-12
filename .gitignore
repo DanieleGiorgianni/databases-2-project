@@ -3,3 +3,4 @@ build/
 lib/
 *.jar
 .DS_Store
+.classpath

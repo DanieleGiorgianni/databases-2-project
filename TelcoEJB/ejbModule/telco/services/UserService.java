@@ -61,7 +61,7 @@ public class UserService {
 		}
 	}
 	
-	public String login(String username, String password) throws CredentialsException, NonUniqueResultException{
+	public User login(String username, String password) throws CredentialsException, NonUniqueResultException{
 		List<User> userList = null;
 		
 		try {
@@ -73,11 +73,11 @@ public class UserService {
 					.getResultList();
 			
 			if (userList.isEmpty())
-				return "User does not exist";
+				return null;
 			
 			System.out.println("Login in UserService OK");
 			
-			return "OK";
+			return userList.get(0);
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Impossible verify your credentials");
 		}

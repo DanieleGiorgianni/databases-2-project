@@ -17,6 +17,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import telco.entities.User;
 import telco.exceptions.CredentialsException;
 import telco.services.UserService;
 
@@ -46,6 +47,7 @@ public class Login extends HttpServlet{
 		String password = null;
 		String path;
 		String string = "Login fails";
+		User user = null;
 		
 		System.out.println("doPost in Login");
 		
@@ -64,11 +66,17 @@ public class Login extends HttpServlet{
 		
 		try {
 			// Obtaining a (possible) user given specified username and password
-			string = userService.login(username, password);
-			if (string == "OK") {
-				ctx.setVariable("loginMsg", "Login OK");
-				path = "/WEB-INF/confirmation.html";
-				templateEngine.process(path, ctx, response.getWriter());
+			user = userService.login(username, password);
+			if (user != null) {
+				request.getSession().setAttribute("user", user);
+				
+				path = getServletContext().getContextPath() + "/GoToHome";
+				response.sendRedirect(path);
+				
+//				ctx.setVariable("loginMsg", "Login OK");
+//				path = "/WEB-INF/home.html";
+//				templateEngine.process(path, ctx, response.getWriter());
+				
 				return;
 			}
 		} catch (NonUniqueResultException | CredentialsException e) {

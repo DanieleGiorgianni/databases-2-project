@@ -4,3 +4,5 @@ lib/
 *.jar
 .DS_Store
 .classpath
+.project
+**/.setting

@@ -8,9 +8,12 @@
 </head>
 
 <body>
-	<h1>Telco Home Page</h1>
-	<div>
-		<p th:text="${session.user.username}"></p>
+	<div class="page-title">
+		<h1>Telco Home Page</h1>
+	</div>
+	
+	<div class="page-content">
+		<p class="username-top" th:text="${session.user.username}"></p>
 		<h2>Welcome!</h2>
 	</div>
 </body>

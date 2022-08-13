@@ -8,25 +8,26 @@
 </head>
 
 <body>
-
-	<h1>Telco Home Page</h1>
-	<div class="main-div">
-		<div>
+	<div class="page-title">
+		<h1>Telco Home Page</h1>
+	</div>
+		
+	<div class="page-content">
+		<div style="margin-bottom: 10px;">
 			<!-- 
 				method="GET": to send the form data as an HTTP GET request to the server 
 				action="GoToRegistration": specifies relative URL of the servlet which is 
 										   responsible for handling data got from this form
 			-->
 			<form action="GoToRegistration" method="GET">
-				<input type="submit" value="Registration">
+				<input type="submit" value="Registration" class="submit-btn">
 			</form>
 		</div>
 		<div>
 			<form action="GoToLogin" method="GET">
-				<input type="submit" value="Login">
+				<input type="submit" value="Login" class="submit-btn">
 			</form>
 		</div>
 	</div>
-	
 </body>
 </html>

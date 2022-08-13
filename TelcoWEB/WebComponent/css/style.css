@@ -19,6 +19,10 @@
 	font-size: 1.2em;
 }
 
-.username-top {
-	text-align: right;
+.username-box {
+	float: right;
+	text-align: center;
+  	border: 2px solid white;
+    border-radius: 20px;
+    display: inline-block;
 }

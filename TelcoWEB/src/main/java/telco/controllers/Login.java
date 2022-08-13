@@ -83,7 +83,7 @@ public class Login extends HttpServlet{
 			e.printStackTrace();
 		}
 		
-		System.out.println("Something went wrong [" + string + "]");
+		System.out.println("> Something went wrong [" + string + "]");
 		ctx.setVariable("loginMsg", "Something went wrong [" + string + "]");
 		path = "/WEB-INF/login.html";
 		templateEngine.process(path, ctx, response.getWriter());

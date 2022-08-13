@@ -13,7 +13,12 @@
 	</div>
 	
 	<div class="page-content">
-		<p class="username-top" th:text="${session.user.username}"></p>
+		<div class="username-box" th:if="${session.user != null}">
+			<div style="margin: 2px 5px;">
+				<span style="font-size: 1.2em;" th:text="${session.user.username}"></span><br>
+				<a th:href="@{/Logout}">Logout</a>
+			</div>
+		</div>
 		<h2>Welcome!</h2>
 	</div>
 </body>

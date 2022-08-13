@@ -25,7 +25,6 @@ public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 
-	
 	@EJB(name = "telco.services/UserService") // Creates a reference in component namespace
 	private UserService userService;
 
@@ -72,7 +71,7 @@ public class Registration extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Something went wrong [" + string + "]");
+		System.out.println("> Something went wrong [" + string + "]");
 		ctx.setVariable("registrationMsg", "Something went wrong [" + string + "]");
 		path = "/WEB-INF/registration.html";
 		templateEngine.process(path, ctx, response.getWriter());

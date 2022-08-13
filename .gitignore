@@ -3,6 +3,7 @@ build/
 lib/
 *.jar
 .DS_Store
-.classpath
-.project
-**/.settings
+#To remove after import into Eclipse
+#.classpath
+#.project
+#**/.settings

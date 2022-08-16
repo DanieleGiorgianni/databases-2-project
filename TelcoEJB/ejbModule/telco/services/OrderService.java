@@ -19,7 +19,7 @@ public class OrderService {
 	public OrderService() {}
 	
 	public List<Order> findAllOrders() {
-		return em.createNamedQuery("Order.findAll", Order.class).getResultList();
+		return em.createNamedQuery("Order.findAllOrders", Order.class).getResultList();
 	}
 	
 	public Order findOrderById(int orderId) {

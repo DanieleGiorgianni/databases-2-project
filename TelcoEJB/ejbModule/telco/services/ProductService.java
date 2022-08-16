@@ -19,10 +19,14 @@ public class ProductService {
 	public ProductService() {}
 	
 	public List<Product> findAllProducts(){
-		return em.createNamedQuery("Product.findAll", Product.class).getResultList();
+		return em.createNamedQuery("Product.findAllProducts", Product.class).getResultList();
 	}
 	
 	public Product findProductById(int productId) {
 		return em.find(Product.class, productId);
+	}
+	
+	public List<Product> findProductByName(){
+		return em.createNamedQuery("Product.findProductByName", Product.class).getResultList();
 	}
 }

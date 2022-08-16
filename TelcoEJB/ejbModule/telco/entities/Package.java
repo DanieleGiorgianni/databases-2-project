@@ -19,8 +19,6 @@ import javax.persistence.Table;
 @Table (name = "package", schema = "telcodb")
 
 @NamedQuery (name = "Package.findAllPackages", query = "SELECT p FROM Package p")
-@NamedQuery (name = "Package.findPackageById", query = "SELECT p FROM Package p WHERE p.id = ?1")
-@NamedQuery (name = "Package.findPackageByName", query = "SELECT p FROM Package p WHERE p.name = ?1")
 
 @NamedQuery (name = "Package.findPackageById", query = "SELECT p FROM Package p WHERE p.id = ?1")
 @NamedQuery (name = "Package.findPackageByName", query = "SELECT p FROM Package p WHERE p.name = ?1")
@@ -38,7 +36,7 @@ public class Package implements Serializable {
 	private int validity;
 	private int monthlyfee;
 	
-	public Package () {}
+	public Package() {}
 	
 	//Relationship
 	@OneToMany (mappedBy = "pack")

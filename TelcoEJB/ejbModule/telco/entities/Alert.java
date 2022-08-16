@@ -36,7 +36,7 @@ public class Alert implements Serializable {
 	private int amount;
 	private Timestamp lastdatetime;
 	
-	public Alert () {}
+	public Alert() {}
 	
 	//Relationship
 	@OneToOne

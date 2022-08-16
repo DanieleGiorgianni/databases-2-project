@@ -36,11 +36,11 @@ public class Service implements Serializable{
 	private int giganum;
 	private int gigafee;
 	
-	public Service () {}
+	public Service() {}
 	
 	//Relationship
 	@ManyToMany (mappedBy = "services")
-	private List <Package> packages;
+	private List<Package> packages;
 	
 	//Getters and Setters
 	public int getId() {

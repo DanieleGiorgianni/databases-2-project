@@ -19,10 +19,14 @@ public class ServiceService {
 	public ServiceService() {}
 	
 	public List<Service> findAllServices() {
-		return em.createNamedQuery("Service.findAll", Service.class).getResultList();
+		return em.createNamedQuery("Service.findAllServices", Service.class).getResultList();
 	}
 	
 	public Service findServiceById(int serviceId) {
 		return em.find(Service.class, serviceId);
+	}
+	
+	public List<Service> findServiceByType() {
+		return em.createNamedQuery("Service.findServiceByType", Service.class).getResultList();
 	}
 }

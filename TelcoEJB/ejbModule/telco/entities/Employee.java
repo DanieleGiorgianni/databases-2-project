@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @NamedQuery (name = "Employee.checkLoginCredentials", query = "SELECT e FROM Employee e  WHERE e.employeename = ?1 and e.password = ?2")
 
 @NamedQuery (name = "Employee.findEmployeeById", query = "SELECT e FROM Employee e WHERE e.id = ?1")
-@NamedQuery (name = "Employee.findOrderByName", query = "SELECT e FROM Employee e WHERE e.name = ?1")
+@NamedQuery (name = "Employee.findEmployeeByName", query = "SELECT e FROM Employee e WHERE e.name = ?1")
 
 public class Employee implements Serializable {
 	
@@ -35,7 +35,7 @@ public class Employee implements Serializable {
 	private String password;
 	private String email;
 	
-	public Employee () {}
+	public Employee() {}
 	
 	//Relationship
 	@OneToMany (mappedBy = "employee")
@@ -47,7 +47,7 @@ public class Employee implements Serializable {
 	@ManyToMany
 	@JoinTable (name = "employee_controls_alert", joinColumns = @JoinColumn (name = "employeeid"),
 	inverseJoinColumns = @JoinColumn (name = "alertid"))
-	private List <Alert> alerts;
+	private List<Alert> alerts;
 	
 	//Getters and Setters
 	public int getId() {

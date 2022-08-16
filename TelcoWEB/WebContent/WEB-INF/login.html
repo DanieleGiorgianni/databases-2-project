@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Telco - Login Page</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"></link>
+</head>
+
+<body>
+	<div class="page-title">
+		<h1>Telco Login Page</h1>
+	</div>
+
+	<div class="page-content">
+		<h2>Login here!</h2>
+		<form th:action="@{/Login}" method="POST">
+			<p>Username: <input type="text" name="username" required></p>
+			<p>Password: <input type="password" name="password" required></p>
+			<p><input type="submit" value="Login" class="submit-btn"></p>
+			<p th:text="${loginMsg}"></p>
+		</form>
+	</div>
+</body>
+</html>

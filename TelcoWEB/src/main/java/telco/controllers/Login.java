@@ -73,10 +73,6 @@ public class Login extends HttpServlet{
 				path = getServletContext().getContextPath() + "/GoToHome";
 				response.sendRedirect(path);
 				
-//				ctx.setVariable("loginMsg", "Login OK");
-//				path = "/WEB-INF/home.html";
-//				templateEngine.process(path, ctx, response.getWriter());
-				
 				return;
 			}
 		} catch (NonUniqueResultException | CredentialsException e) {

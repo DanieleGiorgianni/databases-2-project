@@ -1,0 +1,58 @@
+@charset "ISO-8859-1";
+
+.page-title {
+	border: 1px solid black;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.page-content {
+	margin-top: 14px;
+	padding: 10px 16px;
+	border: 2px solid black;
+	border-radius: 15px;
+	background-color: lightsteelblue;
+	text-align: center;
+}
+
+.submit-btn {
+	font-size: 1.2em;
+}
+
+.username-box {
+	float: right;
+	text-align: center;
+  	border: 2px solid black;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.test {
+	border: 2px solid black;
+	border-radius: 15px;
+	font-size: 2em;
+}
+
+.package-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px;
+}
+
+.package-div {
+	border: 2px solid black;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.package-div:hover {
+	border: 2px solid black;
+	border-radius: 15px;
+	text-align: center;
+	background-color: white;
+}
+
+.no-style {
+	color: inherit;
+	text-decoration: none;
+}

@@ -1,6 +1,7 @@
 package telco.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -39,7 +40,15 @@ public class GoToHome extends HttpServlet {
 		
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-
+		
+		// Packages setup
+		List<Object> packages = null;
+		ctx.setVariable("packages", packages);
+		
+		// TODO rejected order(s) or alert setup
+		
+				
+		
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 }

@@ -23,8 +23,7 @@ public class UserService {
 	@PersistenceContext(unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Persistence Context.
 
-	public UserService() {
-	}
+	public UserService() {}
 
 	public String registration(String username, String email, String password) throws CredentialsException{
 		List<User> userList = null;

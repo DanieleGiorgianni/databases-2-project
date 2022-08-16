@@ -3,5 +3,11 @@
 	<persistence-unit name="TelcoEJB">
 		<jta-data-source>telco</jta-data-source>
 		<class>telco.entities.User</class>
+		<class>telco.entities.Order</class>
+		<class>telco.entities.Alert</class>
+		<class>telco.entities.Package</class>
+		<class>telco.entities.Service</class>
+		<class>telco.entities.Product</class>
+		<class>telco.entities.Employee</class>
 	</persistence-unit>
 </persistence>

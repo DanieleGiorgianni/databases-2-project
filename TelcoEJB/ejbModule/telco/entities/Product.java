@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @NamedQuery (name = "Product.findAllProducts", query = "SELECT p FROM Product p")
 
 @NamedQuery (name = "Product.findProductById", query = "SELECT p FROM Product p WHERE p.id = ?1")
-@NamedQuery (name = "Product.findProductByName", query = "SELECT p FROM Product p WHERE o.name = ?1")
+@NamedQuery (name = "Product.findProductByName", query = "SELECT p FROM Product p WHERE p.name = ?1")
 
 public class Product implements Serializable {
 	

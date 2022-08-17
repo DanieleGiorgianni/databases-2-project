@@ -14,7 +14,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-@WebServlet("/GoToRegistration") // Servlet's URL
+@WebServlet ("/GoToRegistration") // Servlet's URL
 public class GoToRegistration extends HttpServlet {
 	
 	/* Universal version identifier for Serializable class.

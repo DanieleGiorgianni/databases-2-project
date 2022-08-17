@@ -20,7 +20,7 @@ public class UserService {
 	
 	/* Persistence Context is a set of objects that need to be managed 
 	 * and tracked in their changes by the Entity Manager. */
-	@PersistenceContext(unitName = "TelcoEJB")
+	@PersistenceContext (unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Persistence Context.
 
 	public UserService() {}
@@ -68,7 +68,6 @@ public class UserService {
 					.createNamedQuery("User.checkLoginCredentials", User.class)
 					.setParameter(1, username)
 					.setParameter(2, password)
-					//.setHint("javax.persistence.cache.storeMode", "REFRESH")
 					.getResultList();
 			
 			if (userList.isEmpty())

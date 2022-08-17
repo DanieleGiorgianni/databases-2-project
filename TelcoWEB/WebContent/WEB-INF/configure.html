@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Telco - Configure Page</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"></link>
+</head>
+
+<body>
+	<div class="page-title">
+		<h1>Telco Configure Page</h1>
+	</div>
+	
+	<div class="page-content">
+		<div class="username-box" th:if="${session.user != null}">
+			<div style="margin: 2px 5px;">
+				<span style="font-size: 1.2em;" th:text="${session.user.username}"></span><br>
+				<a th:href="@{/Logout}">Logout</a>
+			</div>
+		</div>
+		<h2>Configure the <span th:text="${package.name}"></span> Telco package</h2>
+		<h3>Select the additional optional products and the validity you want.</h3>
+		<p>Whatever you choose, you will not be disappointed.</p>
+		
+		<div th:if="${products == null}">
+			<h4>There are no optional products available for this package.</h4>
+		</div>
+		
+		<div th:if="${products != null}">
+			<h4>There are no optional products available for this package.</h4>
+			<div>
+				<label>Choose 0 or more optional products:</label>
+				<table>
+					<tbody>
+						<tr th:each="p : ${products}">
+							<td th:text="${p.name}"></td>
+							<td th:text="${p.monthlyfee}"></td>
+							<td><input th:value="${p.id}" name="optionalproduct" type="checkbox"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

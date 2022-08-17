@@ -11,7 +11,7 @@ import telco.entities.Alert;
 @Stateless
 public class AlertService {
 	
-	@PersistenceContext(unitName = "TelcoEJB")
+	@PersistenceContext (unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Pers
 	
 	public AlertService() {}

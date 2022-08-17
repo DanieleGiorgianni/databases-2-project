@@ -21,12 +21,12 @@ import telco.entities.User;
 import telco.exceptions.CredentialsException;
 import telco.services.UserService;
 
-@WebServlet("/Login")
+@WebServlet ("/Login")
 public class Login extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
-	@EJB(name = "telco.services/UserService")
+	@EJB (name = "telco.services/UserService")
 	private UserService userService;
 
 	public Login() {

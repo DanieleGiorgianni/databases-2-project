@@ -20,12 +20,12 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import telco.exceptions.CredentialsException;
 import telco.services.UserService;
 
-@WebServlet("/Registration")
+@WebServlet ("/Registration")
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 
-	@EJB(name = "telco.services/UserService") // Creates a reference in component namespace
+	@EJB (name = "telco.services/UserService") // Creates a reference in component namespace
 	private UserService userService;
 
 	public Registration() {

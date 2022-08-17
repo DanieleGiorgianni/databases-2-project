@@ -7,13 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import telco.entities.Package;
+import telco.entities.Product;
 
 @Stateless
 public class PackageService {
 	
 	/* Persistence Context is a set of objects that need to be managed 
 	 * and tracked in their changes by the Entity Manager. */
-	@PersistenceContext(unitName = "TelcoEJB")
+	@PersistenceContext (unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Persistence Context.
 	
 	public PackageService() {}
@@ -28,5 +29,9 @@ public class PackageService {
 	
 	public List<Package> findPackageByName() {
 		return em.createNamedQuery("Package.findPackageByName", Package.class).getResultList();
+	}
+	
+	public List<Product> findProductsByPackageId (int packageId) {
+		return em.find(Package.class, packageId).getProducts();
 	}
 }

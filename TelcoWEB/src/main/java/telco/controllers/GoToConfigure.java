@@ -17,17 +17,18 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import telco.entities.Package;
+import telco.entities.Product;
 import telco.services.PackageService;
 
-@WebServlet ("/GoToHome")
-public class GoToHome extends HttpServlet {
+@WebServlet ("/GoToConfigure")
+public class GoToConfigure extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
 	@EJB (name = "telco.services/PackageService")
 	private PackageService packageService;
 
-	public GoToHome() {
+	public GoToConfigure() {
 		super();
 	}
 
@@ -41,19 +42,27 @@ public class GoToHome extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet in GoToHome");
+		System.out.println("doGet in GoToConfigure");
 		
-		String path = "/WEB-INF/home.html";
+		String path = "/WEB-INF/configure.html";
 		
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		// Packages setup
-		List<Package> packages = null;
-		packages = packageService.findAllPackages();	
-		ctx.setVariable("packages", packages);
+		Integer packageId = null;
+		Package pack = null;
+		List<Product> products = null;
 		
-		// TODO rejected order(s) or alert setup
+		packageId = Integer.parseInt(request.getParameter("packageId"));
+		pack = packageService.findPackageById(packageId);
+		products = packageService.findProductsByPackageId(packageId);
+		
+		// TODO validity
+		
+		if (packageId != null && pack != null) { // No check on products because a package can have no (optional) products
+			ctx.setVariable("package", pack);
+			ctx.setVariable("products", products);
+		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}

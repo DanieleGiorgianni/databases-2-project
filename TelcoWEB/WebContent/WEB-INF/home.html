@@ -21,7 +21,7 @@
 		</div>
 		<h2>Welcome!</h2>
 		<h3>Here you can find all the Telco packages.</h3>
-		<p>Choose the one that suits you best, configure it with products and services you prefer, and enjoy the Telco experience</p>
+		<p>Choose the one that suits you best, configure it with products you prefer and enjoy the Telco experience.</p>
 		
 		<div th:if="${packages == null}">
 			<h4>There are currently no packages available. Check back later, thank you.</h4>
@@ -62,7 +62,7 @@
 			<h4>Click on the package you want to purchase to complete the order.</h4>
 			<div class="package-container">
 				<div class="package-div" th:each="p : ${packages}">
-					<p><b><a class="no-style" th:href="@{/GoToBuy(packageId=${p.id})}" th:text="${p.name}"></a></b></p>
+					<p><b><a class="no-style" th:href="@{/GoToConfigure(packageId=${p.id})}" th:text="${p.name}"></a></b></p>
 					<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
 						<tr><th>Services</th></tr>
 					  	<tr th:each="s : ${p.getServices()}"><td th:text="${s.type}"></td></tr>

@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,7 +33,7 @@ public class Order implements Serializable {
 	//Attributes
 	private int monthlyfee;
 	private Timestamp purchasedate;
-	private int validity;
+	private int validityperiod;
 	private int fails;
 	
 	public Order() {}
@@ -46,10 +47,17 @@ public class Order implements Serializable {
 	@JoinColumn (name = "packageid")
 	private Package pack;
 	
+	@ManyToOne
+	@JoinColumn (name = "validityfeeid")
+	private ValidityFee validityfee;
+	
 	@ManyToMany
 	@JoinTable (name = "order_comprises_product", joinColumns = @JoinColumn (name = "orderid"),
 	inverseJoinColumns = @JoinColumn (name = "productid"))
 	private List<Product> products;
+	
+	@OneToOne (mappedBy = "order")
+	private Sas sas;
 
 	//Getters & Setters
 	public int getId() {
@@ -77,11 +85,11 @@ public class Order implements Serializable {
 	}
 
 	public int getValidity() {
-		return validity;
+		return validityperiod;
 	}
 
 	public void setValidity(int validity) {
-		this.validity = validity;
+		this.validityperiod = validity;
 	}
 
 	public int getFails() {
@@ -114,5 +122,21 @@ public class Order implements Serializable {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public ValidityFee getValidityfee() {
+		return validityfee;
+	}
+
+	public void setValidityfee(ValidityFee validityfee) {
+		this.validityfee = validityfee;
+	}
+
+	public Sas getSas() {
+		return sas;
+	}
+
+	public void setSas(Sas sas) {
+		this.sas = sas;
 	}	
 }

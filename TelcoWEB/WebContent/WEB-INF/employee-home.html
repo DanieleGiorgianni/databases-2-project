@@ -13,13 +13,25 @@
 	</div>
 	
 	<div class="page-content">
-		<div class="username-box" th:if="${session.user != null}">
+		<div class="username-box" th:if="${session.employee != null}">
 			<div style="margin: 2px 5px;">
-				<span style="font-size: 1.2em;" th:text="${session.user.username}"></span><br>
+				<span style="font-size: 1.2em;" th:text="${session.employee.employeename}"></span><br>
 				<a th:href="@{/Logout}">Logout</a>
 			</div>
 		</div>
-		<h2>Welcome!</h2>
+		<h2>Welcome To Employee Home Page!</h2>
+		
+		<div>
+			<h2> Create Package </h2>
+			<form th:action="@{/CreatePackage}" method="POST">
+			</form>
+		</div>
+		
+		<br>
+		
+		<div>
+			<h2> Create Optional Product </h2>
+		</div>
 	</div>
 </body>
 </html>

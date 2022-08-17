@@ -38,6 +38,9 @@ public class User implements Serializable {
 	@OneToMany (mappedBy = "user")
 	private List<Order> orders;
 	
+	@OneToMany (mappedBy = "user")
+	private List<Sas> sasses;
+	
 	//Getters and Setters
 	public int getUserid() {
 		return id;
@@ -68,5 +71,23 @@ public class User implements Serializable {
 	}
 	public void setInsolvent(boolean insolvent) {
 		this.insolvent = insolvent;
+	}
+	public Alert getAlert() {
+		return alert;
+	}
+	public void setAlert(Alert alert) {
+		this.alert = alert;
+	}
+	public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	public List<Sas> getSasses() {
+		return sasses;
+	}
+	public void setSasses(List<Sas> sasses) {
+		this.sasses = sasses;
 	}
 }

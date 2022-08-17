@@ -56,6 +56,11 @@ public class Package implements Serializable {
 	inverseJoinColumns = @JoinColumn (name = "productid"))
 	private List<Product> products;
 	
+	@ManyToMany
+	@JoinTable (name = "package_offers_validityfee", joinColumns = @JoinColumn (name = "packageid"),
+	inverseJoinColumns = @JoinColumn (name = "validityfeeid"))
+	private List<ValidityFee> validityfee; 
+	
 	//Getters and Setters
 	public int getId() {
 		return id;
@@ -104,5 +109,11 @@ public class Package implements Serializable {
 	}
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+	public List<ValidityFee> getValidityfee() {
+		return validityfee;
+	}
+	public void setValidityfee(List<ValidityFee> validityfee) {
+		this.validityfee = validityfee;
 	}
 }

@@ -48,12 +48,12 @@ public class PackageService {
 		return em.find(Package.class, packageId).getProducts();
 	}
 	
-	public List<ValidityFee> findPackageValidityFee (int packageId) {
-		return em.find(Package.class, packageId).getValidityfee();
+	public List<ValidityFee> findValidityFeesByPackageId (int packageId) {
+		return em.find(Package.class, packageId).getValidityFees();
 	}
 	
 	
-	public String createPackage(String name, String [] validity, String [] services, String [] products) {
+	public String createPackage(String name, String[] validity, String[] services, String[] products) {
 		
 		//Check if already exists a package with the same name
 		List<Package> packs = findPackageByName();
@@ -84,7 +84,7 @@ public class PackageService {
 			ValidityFee addValidityFee = validityFeeService.findValidityFeeById(vId);
 			addValidityFees.add(addValidityFee);
 		}
-		pack.setValidityfee(addValidityFees);
+		pack.setValidityFees(addValidityFees);
 		
 		if (products != null) {
 			List <Product> addProducts = new ArrayList<Product> ();

@@ -36,7 +36,7 @@ public class ValidityFee implements Serializable{
 	@OneToMany (mappedBy = "validityfee")
 	private List<Order> orders;
 	
-	@ManyToMany (mappedBy = "validityfee")
+	@ManyToMany (mappedBy = "validityfees")
 	private List<Package> packages;
 
 	

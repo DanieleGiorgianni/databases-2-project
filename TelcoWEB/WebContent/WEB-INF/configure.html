@@ -19,7 +19,7 @@
 				<a th:href="@{/Logout}">Logout</a>
 			</div>
 		</div>
-		<h2>Configure the <span th:text="${package.name}"></span> Telco package</h2>
+		<h2>Configure the <span th:text="${package.name} + ' [ID: ' + ${package.id} + ']'"></span> package</h2>
 		<h3>Select the additional optional products and the validity you want.</h3>
 		<p>Whatever you choose, you will not be disappointed.</p>
 		
@@ -28,19 +28,39 @@
 		</div>
 		
 		<div th:if="${products != null}">
-			<h4>There are no optional products available for this package.</h4>
-			<div>
-				<label>Choose 0 or more optional products:</label>
-				<table>
-					<tbody>
-						<tr th:each="p : ${products}">
-							<td th:text="${p.name}"></td>
-							<td th:text="${p.monthlyfee}"></td>
-							<td><input th:value="${p.id}" name="optionalproduct" type="checkbox"></td>
+			<form th:action="@{/GoToBuy}" method="GET">
+			
+				<div class="config-div">
+					<h4>Validity period</h4>
+					<table style="margin: auto;">
+						<tr th:each="vf : ${validityfees}">
+							<td><input type="radio" name="validityfeeId" th:value="${vf.id}"></td>
+							<td><label style="text-align: left;" th:text="${vf.months} + ' at ' + ${vf.monthlyfee} + ' EUR per month'"></label></td>
 						</tr>
-					</tbody>
-				</table>
-			</div>
+					</table>
+				</div>
+				
+				<div th:if="${products != null}" class="config-div">
+					<h4>Optional products</h4>
+					<table style="margin: auto;">
+						<tr th:each="p : ${products}">
+							<td><input type="checkbox" name="productId" th:value="${p.id}"></td>
+							<td style="text-align: left;"><label th:text="${p.name} + ' at ' + ${p.monthlyfee} + ' EUR per month'"></label></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="config-div">
+					<h4>Starting date</h4>
+					<label>Select the starting date for this package:</label> 
+					<input type="date" name="startdate" value="2022-08-18" min="2022-06-01">
+				</div>
+				
+				<p>
+					<input type="hidden" name="packageId" th:value="${package.id}">
+					<input type="submit" value="Confirm" class="submit-btn">
+				</p>
+			</form>
 		</div>
 	</div>
 </body>

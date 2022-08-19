@@ -1,6 +1,7 @@
 package telco.controllers;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +22,24 @@ import telco.entities.Package;
 import telco.entities.Product;
 import telco.entities.ValidityFee;
 import telco.services.PackageService;
+import telco.services.ProductService;
+import telco.services.ValidityFeeService;
 
-@WebServlet ("/GoToConfigure")
-public class GoToConfigure extends HttpServlet {
+@WebServlet ("/GoToBuy")
+public class GoToBuy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
 	@EJB (name = "telco.services/PackageService")
 	private PackageService packageService;
-
-	public GoToConfigure() {
+	
+	@EJB (name = "telco.services/ProductService")
+	private ProductService productService;
+	
+	@EJB (name = "telco.services/ValidityFeeService")
+	private ValidityFeeService validityFeeService;
+	
+	public GoToBuy() {
 		super();
 	}
 
@@ -42,31 +51,56 @@ public class GoToConfigure extends HttpServlet {
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet in GoToConfigure");
+		System.out.println("doGet in GoToBuy");
 		
-		String path = "/WEB-INF/configure.html";
+		String path = "/WEB-INF/buy.html";
 		
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		Integer packageId = null;
 		Package pack = null;
+		String[] productsIdStrings = null;
+		Integer productId = null;
 		List<Product> products = new ArrayList<Product>();
-		List<ValidityFee> validityFees = new ArrayList<ValidityFee>();
+		ValidityFee validityFee = null;
+		Date startDate = null;
+		int monthlyfee = 0;
+		int totalfee = 0;
 		
 		packageId = Integer.parseInt(request.getParameter("packageId"));
 		pack = packageService.findPackageById(packageId);
-		products = packageService.findProductsByPackageId(packageId);
-		validityFees = packageService.findValidityFeesByPackageId(packageId);
+		productsIdStrings = request.getParameterValues("productId");
+		if (productsIdStrings != null) {
+			for (String productIdString : productsIdStrings) {
+				productId = Integer.parseInt(productIdString);
+				products.add(productService.findProductById(productId));
+			}
+		}
+		validityFee = validityFeeService.findValidityFeeById(Integer.parseInt(request.getParameter("validityfeeId")));
+		startDate = Date.valueOf(request.getParameter("startdate"));
 		
-		if (packageId != null && pack != null && validityFees != null) { // No check on products because a package can have no (optional) products
+		// Total monthly cost calculation
+		monthlyfee += validityFee.getMonthlyfee();
+		if (!products.isEmpty()) {
+			for (Product p : products)
+				monthlyfee += p.getMonthlyfee();
+		}
+		
+		totalfee = monthlyfee*validityFee.getMonths();
+		
+		if (packageId != null && pack != null && validityFee != null) {
 			ctx.setVariable("package", pack);
 			ctx.setVariable("products", products);
-			ctx.setVariable("validityfees", validityFees);
+			ctx.setVariable("validityfee", validityFee);
+			ctx.setVariable("startdate", startDate);
+			ctx.setVariable("monthlyfee", monthlyfee);
+			ctx.setVariable("totalfee", totalfee);
 		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}
+
 }

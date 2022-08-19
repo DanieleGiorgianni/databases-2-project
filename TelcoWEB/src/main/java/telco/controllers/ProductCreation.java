@@ -58,5 +58,3 @@ public class ProductCreation extends HttpServlet {
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 }
-	
-	

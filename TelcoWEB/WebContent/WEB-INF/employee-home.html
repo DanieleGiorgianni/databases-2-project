@@ -22,19 +22,18 @@
 		<h2> Welcome To Employee Home Page!</h2>
 		
 		<div>
-			<div class ="package-container">
-				<div class = "package-div" >
+			<div class="package-container">
+				<div class="package-div" >
 					<h3> Create Package </h3>
 					<form th:action="@{/PackageCreation}" method="POST">
-						<p>PackageName: <input type = "text" name = "packagename" required></p>
+						<p>PackageName: <input type="text" name="packagename" required></p>
 						<br>
 						<label for="packagevalidity"> Choose 1 or more ValidityFee: </label>
 						<table>
 							<tbody>
 								<tr th:each="v: ${validityfees}">
 									<td th:text="${v.months}"></td>
-									<td><input name="packagevalidity" th:value="${v.id}"
-										type="checkbox"></td>
+									<td><input name="packagevalidity" th:value="${v.id}" type="checkbox"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -42,7 +41,7 @@
 						<label for="packageservice"> Choose 1 or more Services: </label> 
 						<table>
 							<tbody>
-								<tr th:each="s: ${services}">
+								<tr th:each="s : ${services}">
 									<td th:text="${s.type}"></td>
 									<td><input name="packageservice" th:value="${s.id}"
 										type="checkbox"></td>
@@ -61,17 +60,17 @@
 								</tr>
 							</tbody>
 						</table>
-						<input type="submit" value="Create Package"  class="submit-btn">
+						<input type="submit" value="PackageCreation"  class="submit-btn">
 						<p th:text="${packageMsg}"></p>
 					</form>
 				</div>
 				
-				<div class = "package-div" >
+				<div class="package-div" >
 					<h3> Create Optional Product </h3>
 					<form th:action="@{/ProductCreation}" method="POST">
-						<p>ProductName: <input type = "text" name = "productname" required></p>
-						<p>Product-MonthlyFee: <input type = "text" name = "productmonthlyfee" required></p>
-						<input type="submit" value="Create Product"  class="submit-btn">
+						<p>ProductName: <input type="text" name="productname" required></p>
+						<p>Product-MonthlyFee: <input type="text" name="productmonthlyfee" required></p>
+						<input type="submit" value="ProductCreation"  class="submit-btn">
 						<p th:text="${productMsg}"></p>
 					</form>
 				</div>

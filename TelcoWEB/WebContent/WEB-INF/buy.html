@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Telco - Buy Page</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"></link>
+</head>
+
+<body>
+	<div class="page-title">
+		<h1>Telco Buy Page</h1>
+	</div>
+	
+	<div class="page-content">
+		<div class="username-box" th:if="${session.user != null}">
+			<div style="margin: 2px 5px;">
+				<span style="font-size: 1.2em;" th:text="${session.user.username}"></span><br>
+				<a th:href="@{/Logout}">Logout</a>
+			</div>
+		</div>
+		<h2>Your package is ready!</h2>
+		<h3>Here you can find a summary before buying.</h3>
+		
+		<div class="config-div">
+			<h4 th:text="${package.name}"></h4>
+			<table style="margin: auto;">
+				<tr><th>Services</th></tr>
+			  	<tr th:each="s : ${package.getServices()}"><td>
+			  		<p th:text="${s.type}"></p>
+			  		<ul style="text-align: left; padding: 0px 20px 0px 40px;">
+			        	<li th:if="${s.getMinsnum() != 0}">Mins num: <span th:text="${s.minsnum}"></span></li>
+			            <li th:if="${s.getMinsfee() != 0}">Mins extra fee: <span th:text="${s.minsfee}"></span></li>
+			            <li th:if="${s.getSmsnum() != 0}">Sms num: <span th:text="${s.smsnum}"></span></li>
+			            <li th:if="${s.getSmsfee() != 0}">Sms extra fee: <span th:text="${s.smsfee}"></span></li>
+			            <li th:if="${s.getGiganum() != 0}">Giga num: <span th:text="${s.giganum}"></span></li>
+			            <li th:if="${s.getGigafee() != 0}">Giga extra fee: <span th:text="${s.gigafee}"></span></li>
+			        </ul>
+			  	</td></tr>
+			</table>
+
+			<table style="margin: 0px auto 20px auto;" th:if="${!products.empty}">
+				<tr><th>Products</th></tr>
+				<tr th:each="p : ${products}">
+					<td th:text="${p.name} + ' at ' + ${p.monthlyfee} + ' EUR per month'"></td>
+				</tr>
+			</table>
+
+			<table style="margin: 0px auto 20px auto;">
+				<tr><th>Validity</th></tr>
+				<tr>
+					<td th:text="${validityfee.months} + ' months'"></td>
+				</tr>
+			</table>
+			
+			<table style="margin: 0px auto 20px auto;">
+				<tr><th colspan="2">Total for <span th:text="${validityfee.months} + ' months'"></span></th></tr>
+				<tr>
+					<td th:text="${totalfee} + ' EUR '"></td>
+					<td th:text="'(' + ${monthlyfee} + ' EUR per month)'"></td>
+				</tr>
+			</table>
+			
+			<table style="margin: 0px auto 20px auto;">
+				<tr><th colspan="2">Starting date</th></tr>
+				<tr>
+					<td th:text="${startdate}"></td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
+</body>
+</html>

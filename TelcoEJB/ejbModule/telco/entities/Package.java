@@ -34,8 +34,8 @@ public class Package implements Serializable {
 	
 	//Attributes
 	private String name;
-	private int validity;
-	private int monthlyfee;
+	//private int validity;		/*useless since validityfee*/
+	//private int monthlyfee;	/*useless since validityfee*/
 	
 	public Package() {}
 	
@@ -60,7 +60,7 @@ public class Package implements Serializable {
 	@ManyToMany
 	@JoinTable (name = "package_offers_validityfee", joinColumns = @JoinColumn (name = "packageid"),
 	inverseJoinColumns = @JoinColumn (name = "validityfeeid"))
-	private List<ValidityFee> validityfee; 
+	private List<ValidityFee> validityfees; 
 	
 	//Getters and Setters
 	public int getId() {
@@ -75,18 +75,18 @@ public class Package implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getValidity() {
-		return validity;
-	}
-	public void setValidity(int validity) {
-		this.validity = validity;
-	}
-	public int getMonthlyfee() {
-		return monthlyfee;
-	}
-	public void setMonthlyfee(int monthlyfee) {
-		this.monthlyfee = monthlyfee;
-	}
+//	public int getValidity() {
+//		return validity;
+//	}
+//	public void setValidity(int validity) {
+//		this.validity = validity;
+//	}
+//	public int getMonthlyfee() {
+//		return monthlyfee;
+//	}
+//	public void setMonthlyfee(int monthlyfee) {
+//		this.monthlyfee = monthlyfee;
+//	}
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -111,10 +111,10 @@ public class Package implements Serializable {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-	public List<ValidityFee> getValidityfee() {
-		return validityfee;
+	public List<ValidityFee> getValidityFees() {
+		return validityfees;
 	}
-	public void setValidityfee(List<ValidityFee> validityfee) {
-		this.validityfee = validityfee;
+	public void setValidityFees(List<ValidityFee> validityfees) {
+		this.validityfees = validityfees;
 	}
 }

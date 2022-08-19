@@ -28,9 +28,9 @@ public class PackageCreation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String name = request.getParameter("packagename");	
-		String [] validityFees = request.getParameterValues("packagevalidity");
-		String [] services = request.getParameterValues("packageservice");
-		String [] products = request.getParameterValues("packageproducts");
+		String[] validityFees = request.getParameterValues("packagevalidity");
+		String[] services = request.getParameterValues("packageservice");
+		String[] products = request.getParameterValues("packageproducts");
 		String path;
 		String string;
 		

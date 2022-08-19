@@ -29,4 +29,21 @@ public class ProductService {
 	public List<Product> findProductByName(){
 		return em.createNamedQuery("Product.findProductByName", Product.class).getResultList();
 	}
+	
+	public String createProduct(String name, int monthlyfee) {
+		
+		List<Product> products = findProductByName();
+		for (Product p: products) {
+			if (p.getName().equals(name))
+				return "A product with the same name already exists";
+		}
+		
+		Product product = new Product();
+		product.setName(name);
+		product.setMonthlyfee(monthlyfee);
+		
+		em.persist(product);
+		em.flush();
+		return "OK";
+	}
 }

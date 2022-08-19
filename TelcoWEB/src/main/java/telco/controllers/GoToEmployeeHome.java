@@ -17,7 +17,13 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import telco.entities.Package;
+import telco.entities.Product;
+import telco.entities.Service;
+import telco.entities.ValidityFee;
 import telco.services.PackageService;
+import telco.services.ProductService;
+import telco.services.ServiceService;
+import telco.services.ValidityFeeService;
 
 @WebServlet ("/GoToEmployeeHome")
 public class GoToEmployeeHome extends HttpServlet {
@@ -26,6 +32,15 @@ public class GoToEmployeeHome extends HttpServlet {
 	
 	@EJB (name = "telco.services/PackageService")
 	private PackageService packageService;
+	
+	@EJB (name = "telco.services/ServiceService")
+	private ServiceService serviceService;
+	
+	@EJB (name = "telco.services/ProductService")
+	private ProductService productService;
+	
+	@EJB (name = "telco.services/ValidityFeeService")
+	private ValidityFeeService validityFeeService;
 	
 	public GoToEmployeeHome () {
 		super();
@@ -50,11 +65,20 @@ public class GoToEmployeeHome extends HttpServlet {
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		// Packages setup
-		List<Package> packages = null;
-		packages = packageService.findAllPackages();	
+		List<Package> packages = packageService.findAllPackages();	
 		ctx.setVariable("packages", packages);
 		
-		// TODO rejected order(s) or alert setup
+		//Services setup
+		List<Service> services = serviceService.findAllServices();
+		ctx.setVariable("services", services);
+		
+		//Products set up
+		List <Product> products = productService.findAllProducts();
+		ctx.setVariable("products", products);
+		
+		//ValidityFees sets up
+		List<ValidityFee> validityfees = validityFeeService.findAllValidityFees();
+		ctx.setVariable("validityfees", validityfees);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}

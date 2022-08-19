@@ -19,18 +19,67 @@
 				<a th:href="@{/Logout}">Logout</a>
 			</div>
 		</div>
-		<h2>Welcome To Employee Home Page!</h2>
+		<h2> Welcome To Employee Home Page!</h2>
 		
 		<div>
-			<h2> Create Package </h2>
-			<form th:action="@{/CreatePackage}" method="POST">
-			</form>
+			<div class ="package-container">
+				<div class = "package-div" >
+					<h3> Create Package </h3>
+					<form th:action="@{/PackageCreation}" method="POST">
+						<p>PackageName: <input type = "text" name = "packagename" required></p>
+						<br>
+						<label for="packagevalidity"> Choose 1 or more ValidityFee: </label>
+						<table>
+							<tbody>
+								<tr th:each="v: ${validityfees}">
+									<td th:text="${v.months}"></td>
+									<td><input name="packagevalidity" th:value="${v.id}"
+										type="checkbox"></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<label for="packageservice"> Choose 1 or more Services: </label> 
+						<table>
+							<tbody>
+								<tr th:each="s: ${services}">
+									<td th:text="${s.type}"></td>
+									<td><input name="packageservice" th:value="${s.id}"
+										type="checkbox"></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<label for="packageproducts"> Choose 0 or more Optional Products:</label> 
+						<table>
+							<tbody>
+								<tr th:each="p: ${products}">
+									<td th:text="${p.name}"></td>
+									<td th:text="${p.monthlyFee}"></td>
+									<td><input name="packageproducts" th:value="${p.id}"
+										type="checkbox"></td>
+								</tr>
+							</tbody>
+						</table>
+						<input type="submit" value="Create Package"  class="submit-btn">
+						<p th:text="${packageMsg}"></p>
+					</form>
+				</div>
+				
+				<div class = "package-div" >
+					<h3> Create Optional Product </h3>
+					<form th:action="@{/ProductCreation}" method="POST">
+						<p>ProductName: <input type = "text" name = "productname" required></p>
+						<p>Product-MonthlyFee: <input type = "text" name = "productmonthlyfee" required></p>
+						<input type="submit" value="Create Product"  class="submit-btn">
+						<p th:text="${productMsg}"></p>
+					</form>
+				</div>
+			</div>
 		</div>
-		
-		<br>
-		
+
 		<div>
-			<h2> Create Optional Product </h2>
+			<a th:href="@{/GoToSalesReportPage}"> Go to SalesReportPage </a>
 		</div>
 	</div>
 </body>

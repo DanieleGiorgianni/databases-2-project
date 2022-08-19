@@ -22,6 +22,8 @@ import javax.persistence.Table;
 @NamedQuery (name = "Order.findAllOrders", query = "SELECT o FROM Order o")
 @NamedQuery (name = "Order.findOrderById", query = "SELECT o FROM Order o WHERE o.id = ?1")
 
+@NamedQuery (name = "Order.findRejectedOrders", query = "SELECT o FROM Order o WHERE o.valid = TRUE")
+
 public class Order implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -35,6 +37,7 @@ public class Order implements Serializable {
 	private Timestamp purchasedate;
 	private int validityperiod;
 	private int fails;
+	private boolean valid;
 	
 	public Order() {}
 	
@@ -138,5 +141,21 @@ public class Order implements Serializable {
 
 	public void setSas(Sas sas) {
 		this.sas = sas;
+	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
+	public int getValidityperiod() {
+		return validityperiod;
+	}
+
+	public void setValidityperiod(int validityperiod) {
+		this.validityperiod = validityperiod;
 	}	
 }

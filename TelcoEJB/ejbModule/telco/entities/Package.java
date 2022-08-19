@@ -22,6 +22,7 @@ import javax.persistence.Table;
 
 @NamedQuery (name = "Package.findPackageById", query = "SELECT p FROM Package p WHERE p.id = ?1")
 @NamedQuery (name = "Package.findPackageByName", query = "SELECT p FROM Package p WHERE p.name = ?1")
+//@NamedQuery (name = "Package.findPackageValidityFee", query = "SELECT p.validity FROM Package p")
 
 public class Package implements Serializable {
 	

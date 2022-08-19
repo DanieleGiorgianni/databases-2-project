@@ -24,6 +24,19 @@ public class UserService {
 	private EntityManager em; // Interface for interacting with a Persistence Context.
 
 	public UserService() {}
+	
+	public User findUserById(int userId) {
+		return em.find(User.class, userId);
+	}
+	
+	public List<User> findAllInsolvents() {
+		return em.createNamedQuery("User.findAllInsolvents", User.class).getResultList();
+	}
+
+	public List<User> findUserByName() {
+		return em.createNamedQuery("User.findUserByName", User.class).getResultList();
+	}
+
 
 	public String registration(String username, String email, String password) throws CredentialsException{
 		List<User> userList = null;

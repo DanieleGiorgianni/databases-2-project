@@ -18,11 +18,15 @@ public class OrderService {
 
 	public OrderService() {}
 	
+	public Order findOrderById(int orderId) {
+		return em.find(Order.class, orderId);
+	}
+	
 	public List<Order> findAllOrders() {
 		return em.createNamedQuery("Order.findAllOrders", Order.class).getResultList();
 	}
 	
-	public Order findOrderById(int orderId) {
-		return em.find(Order.class, orderId);
+	public List<Order> findRejectedOrders() {
+		return em.createNamedQuery("Order.findRejectedOrders", Order.class).getResultList();
 	}
 }

@@ -23,5 +23,4 @@ public class ValidityFeeService {
 	public ValidityFee findValidityFeeById (int validityFeeId) {
 		return em.find(ValidityFee.class, validityFeeId);
 	}
-	
 }

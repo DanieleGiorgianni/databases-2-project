@@ -12,12 +12,12 @@ import telco.entities.Alert;
 public class AlertService {
 	
 	@PersistenceContext (unitName = "TelcoEJB")
-	private EntityManager em; // Interface for interacting with a Pers
+	private EntityManager em; // Interface for interacting with a Persistence Context.
 	
 	public AlertService() {}
 	
 	public Alert findAlertById(int alertId) {
-		return em.find(Alert.class,alertId);
+		return em.find(Alert.class, alertId);
 	}
 
 	public List<Alert> findAllAlerts() {

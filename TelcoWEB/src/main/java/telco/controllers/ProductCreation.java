@@ -24,7 +24,6 @@ public class ProductCreation extends HttpServlet {
 	private ProductService productService;
 	
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String name = request.getParameter("productname");
 		Integer monthlyfee = Integer.parseInt(request.getParameter("productmonthlyfee"));
 		String path;

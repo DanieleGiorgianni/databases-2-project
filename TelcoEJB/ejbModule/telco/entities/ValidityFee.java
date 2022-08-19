@@ -39,7 +39,6 @@ public class ValidityFee implements Serializable{
 	@ManyToMany (mappedBy = "validityfees")
 	private List<Package> packages;
 
-	
 	//Getters and Setters
 	public int getId() {
 		return id;

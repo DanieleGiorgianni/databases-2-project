@@ -16,7 +16,7 @@ import telco.exceptions.CredentialsException;
 public class EmployeeService {
 	
 	@PersistenceContext (unitName = "TelcoEJB")
-	private EntityManager em; // Interface for interacting with a Pers
+	private EntityManager em; // Interface for interacting with a Persistence Context.
 	
 	public EmployeeService() {}
 	
@@ -27,7 +27,6 @@ public class EmployeeService {
 	public List<Employee> findEmployeeByName () {
 		return em.createNamedQuery("Employee.findEmployeeByName", Employee.class).getResultList();
 	}
-	
 	
 	public Employee login(String username, String password) throws CredentialsException, NonUniqueResultException{
 		List<Employee> employeeList = null;

@@ -31,7 +31,7 @@
 						<label for="packagevalidity"> Choose 1 or more ValidityFee: </label>
 						<table>
 							<tbody>
-								<tr th:each="v: ${validityfees}">
+								<tr th:each="v : ${validityfees}">
 									<td th:text="${v.months}"></td>
 									<td><input name="packagevalidity" th:value="${v.id}" type="checkbox"></td>
 								</tr>
@@ -52,7 +52,7 @@
 						<label for="packageproducts"> Choose 0 or more Optional Products:</label> 
 						<table>
 							<tbody>
-								<tr th:each="p: ${products}">
+								<tr th:each="p : ${products}">
 									<td th:text="${p.name}"></td>
 									<td th:text="${p.monthlyFee}"></td>
 									<td><input name="packageproducts" th:value="${p.id}"

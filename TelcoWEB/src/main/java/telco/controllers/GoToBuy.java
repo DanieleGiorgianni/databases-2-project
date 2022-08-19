@@ -102,5 +102,4 @@ public class GoToBuy extends HttpServlet {
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}
-
 }

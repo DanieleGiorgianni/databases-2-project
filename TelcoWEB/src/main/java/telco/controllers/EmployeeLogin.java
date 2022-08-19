@@ -84,23 +84,5 @@ public class EmployeeLogin extends HttpServlet {
 		ctx.setVariable("employeeLoginMsg", "Something went wrong [" + string + "]");
 		path = "/WEB-INF/employee-login.html";
 		templateEngine.process(path, ctx, response.getWriter());
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

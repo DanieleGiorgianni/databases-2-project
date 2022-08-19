@@ -32,7 +32,6 @@ public class GoToEmployeeLogin extends HttpServlet{
 		templateResolver.setSuffix (".html");
 	}
 	
-	
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println ("doGet in GoToEmployeeLogin");
 		
@@ -43,5 +42,4 @@ public class GoToEmployeeLogin extends HttpServlet{
 
 		templateEngine.process(path, ctx, response.getWriter());
 	}
-
 }

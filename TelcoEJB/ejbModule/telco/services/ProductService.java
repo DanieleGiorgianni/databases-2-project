@@ -31,9 +31,8 @@ public class ProductService {
 	}
 	
 	public String createProduct(String name, int monthlyfee) {
-		
-		List<Product> products = findProductByName();
-		for (Product p: products) {
+		List<Product> products = findAllProducts();
+		for (Product p : products) {
 			if (p.getName().equals(name))
 				return "A product with the same name already exists";
 		}

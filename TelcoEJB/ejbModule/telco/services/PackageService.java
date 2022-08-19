@@ -52,12 +52,10 @@ public class PackageService {
 		return em.find(Package.class, packageId).getValidityFees();
 	}
 	
-	
 	public String createPackage(String name, String[] validity, String[] services, String[] products) {
-		
 		//Check if already exists a package with the same name
-		List<Package> packs = findPackageByName();
-		for (Package p: packs) {
+		List<Package> packs = findAllPackages();
+		for (Package p : packs) {
 			if (p.getName().equals(name))
 				return "A package with the same name already exists";
 		}
@@ -71,7 +69,7 @@ public class PackageService {
 		pack.setName(name);
 		
 		List<Service> addServices = new ArrayList<Service> ();
-		for (String s: services) {
+		for (String s : services) {
 			Integer sId = Integer.parseInt(s);
 			Service addService = serviceService.findServiceById(sId);
 			addServices.add(addService);
@@ -79,7 +77,7 @@ public class PackageService {
 		pack.setServices(addServices);
 		
 		List<ValidityFee> addValidityFees = new ArrayList<ValidityFee> ();
-		for (String v: validity) {
+		for (String v : validity) {
 			Integer vId = Integer.parseInt(v);
 			ValidityFee addValidityFee = validityFeeService.findValidityFeeById(vId);
 			addValidityFees.add(addValidityFee);
@@ -87,8 +85,8 @@ public class PackageService {
 		pack.setValidityFees(addValidityFees);
 		
 		if (products != null) {
-			List <Product> addProducts = new ArrayList<Product> ();
-			for (String p: products) {
+			List<Product> addProducts = new ArrayList<Product> ();
+			for (String p : products) {
 				Integer pId = Integer.parseInt(p);
 				Product addProduct = productService.findProductById(pId);
 				addProducts.add(addProduct);
@@ -100,5 +98,4 @@ public class PackageService {
 		em.flush();
 		return "OK";
 	}
-	
 }

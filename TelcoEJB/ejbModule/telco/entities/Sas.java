@@ -44,7 +44,6 @@ public class Sas implements Serializable {
 	@JoinColumn (name = "userid")
 	private User user;
 	
-	
 	//Getters and Setters
 	public int getId() {
 		return id;
@@ -77,5 +76,4 @@ public class Sas implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
 }

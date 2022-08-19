@@ -7,9 +7,9 @@
 		<class>telco.entities.Order</class>
 		<class>telco.entities.Package</class>
 		<class>telco.entities.Product</class>
+		<class>telco.entities.Sas</class>
 		<class>telco.entities.Service</class>
 		<class>telco.entities.User</class>
-		<class>telco.entities.Sas</class>
 		<class>telco.entities.ValidityFee</class>
 	</persistence-unit>
 </persistence>

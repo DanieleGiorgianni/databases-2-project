@@ -33,10 +33,9 @@ public class UserService {
 		return em.createNamedQuery("User.findAllInsolvents", User.class).getResultList();
 	}
 
-	public List<User> findUserByName() {
-		return em.createNamedQuery("User.findUserByName", User.class).getResultList();
+	public User findUserByName(String username) {
+		return em.createNamedQuery("User.findUserByName", User.class).setParameter(1, username).getSingleResult();
 	}
-
 
 	public String registration(String username, String email, String password) throws CredentialsException{
 		List<User> userList = null;

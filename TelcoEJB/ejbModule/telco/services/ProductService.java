@@ -26,8 +26,8 @@ public class ProductService {
 		return em.find(Product.class, productId);
 	}
 	
-	public List<Product> findProductByName(){
-		return em.createNamedQuery("Product.findProductByName", Product.class).getResultList();
+	public Product findProductByName(String name){
+		return em.createNamedQuery("Product.findProductByName", Product.class).setParameter(1, name).getSingleResult();
 	}
 	
 	public String createProduct(String name, int monthlyfee) {

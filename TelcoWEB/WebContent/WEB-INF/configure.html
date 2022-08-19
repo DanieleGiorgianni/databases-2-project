@@ -31,27 +31,27 @@
 			<form th:action="@{/GoToBuy}" method="GET">
 			
 				<div class="config-div">
-					<h4>Validity period</h4>
-					<table style="margin: auto;">
+					<p><b>Validity period</b></p>
+					<table style="margin: auto; text-align: left;">
 						<tr th:each="vf : ${validityfees}">
 							<td><input type="radio" name="validityfeeId" th:value="${vf.id}"></td>
-							<td><label style="text-align: left;" th:text="${vf.months} + ' at ' + ${vf.monthlyfee} + ' EUR per month'"></label></td>
+							<td><label th:text="${vf.months} + ' at ' + ${vf.monthlyfee} + ' EUR per month'"></label></td>
 						</tr>
 					</table>
 				</div>
 				
 				<div th:if="${products != null}" class="config-div">
-					<h4>Optional products</h4>
-					<table style="margin: auto;">
+					<p><b>Optional products</b></p>
+					<table style="margin: auto; text-align: left;">
 						<tr th:each="p : ${products}">
 							<td><input type="checkbox" name="productId" th:value="${p.id}"></td>
-							<td style="text-align: left;"><label th:text="${p.name} + ' at ' + ${p.monthlyfee} + ' EUR per month'"></label></td>
+							<td><label th:text="${p.name} + ' at ' + ${p.monthlyfee} + ' EUR per month'"></label></td>
 						</tr>
 					</table>
 				</div>
 				
 				<div class="config-div">
-					<h4>Starting date</h4>
+					<p><b>Starting date</b></p>
 					<label>Select the starting date for this package:</label> 
 					<input type="date" name="startdate" value="2022-08-18" min="2022-06-01">
 				</div>

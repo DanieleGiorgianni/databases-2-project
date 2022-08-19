@@ -65,6 +65,8 @@
 	margin-bottom: 10px;
 }
 
-table div.config-div {
-    margin: auto;
+.employee-div {
+	border: 2px solid black;
+	border-radius: 15px;
+	text-align: center;
 }

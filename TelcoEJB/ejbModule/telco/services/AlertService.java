@@ -24,7 +24,7 @@ public class AlertService {
 		return em.createNamedQuery("Alert.findAllAlerts", Alert.class).getResultList();
 	}
 	
-	public List<Alert> findAlertByUser() {
-		return em.createNamedQuery("Alert.findAlertByUser", Alert.class).getResultList();
+	public Alert findAlertByUser(String username) {
+		return em.createNamedQuery("Alert.findAlertByUser", Alert.class).setParameter(1, username).getSingleResult();
 	}
 }

@@ -24,8 +24,8 @@ public class EmployeeService {
 		return em.find(Employee.class, employeeId);
 	}
 
-	public List<Employee> findEmployeeByName () {
-		return em.createNamedQuery("Employee.findEmployeeByName", Employee.class).getResultList();
+	public Employee findEmployeeByName(String employeename) {
+		return em.createNamedQuery("Employee.findEmployeeByName", Employee.class).setParameter(1, employeename).getSingleResult();
 	}
 	
 	public Employee login(String username, String password) throws CredentialsException, NonUniqueResultException{

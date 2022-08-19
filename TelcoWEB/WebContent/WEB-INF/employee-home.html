@@ -23,40 +23,42 @@
 		
 		<div>
 			<div class="package-container">
-				<div class="package-div" >
+				<div class="employee-div" >
 					<h3> Create Package </h3>
 					<form th:action="@{/PackageCreation}" method="POST">
 						<p>PackageName: <input type="text" name="packagename" required></p>
-						<br>
-						<label for="packagevalidity"> Choose 1 or more ValidityFee: </label>
-						<table>
+
+						<b>Choose 1 or more ValidityFee:</b>
+						<table style="margin: 5px auto 20px auto; text-align: left;">
 							<tbody>
 								<tr th:each="v : ${validityfees}">
-									<td th:text="${v.months}"></td>
+									<!-- <td th:text="${v.months}"></td> -->
 									<td><input name="packagevalidity" th:value="${v.id}" type="checkbox"></td>
+									<td><label th:text="${v.months} + ' months'"></label></td>
 								</tr>
 							</tbody>
 						</table>
-						<br>
-						<label for="packageservice"> Choose 1 or more Services: </label> 
-						<table>
+						
+						<b>Choose 1 or more Services:</b> 
+						<table style="margin: 5px auto 20px auto; text-align: left;">
 							<tbody>
 								<tr th:each="s : ${services}">
-									<td th:text="${s.type}"></td>
-									<td><input name="packageservice" th:value="${s.id}"
-										type="checkbox"></td>
+									<!-- <td th:text="${s.type}"></td> -->
+									<td><input name="packageservice" th:value="${s.id}" type="checkbox"></td>
+									<td><label th:text="${s.type}"></label></td>
 								</tr>
 							</tbody>
 						</table>
-						<br>
-						<label for="packageproducts"> Choose 0 or more Optional Products:</label> 
-						<table>
+						
+						<b>Choose 0 or more Optional Products:</b> 
+						<table style="margin: 5px auto 20px auto; text-align: left;">
 							<tbody>
 								<tr th:each="p : ${products}">
-									<td th:text="${p.name}"></td>
-									<td th:text="${p.monthlyFee}"></td>
-									<td><input name="packageproducts" th:value="${p.id}"
-										type="checkbox"></td>
+									<!-- <td th:text="${p.name}"></td>
+									<td th:text="${p.monthlyFee}"></td> -->
+									<td><input name="packageproducts" th:value="${p.id}" type="checkbox"></td>
+									<td><label th:text="${p.name}"></label></td>
+									<td><label th:text="' at ' + ${p.monthlyFee} + ' EUR per month'"></label></td>
 								</tr>
 							</tbody>
 						</table>
@@ -65,7 +67,7 @@
 					</form>
 				</div>
 				
-				<div class="package-div" >
+				<div class="employee-div" >
 					<h3> Create Optional Product </h3>
 					<form th:action="@{/ProductCreation}" method="POST">
 						<p>ProductName: <input type="text" name="productname" required></p>

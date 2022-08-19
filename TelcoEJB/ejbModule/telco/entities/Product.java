@@ -17,7 +17,6 @@ import javax.persistence.Table;
 @Table (name = "product", schema = "telcodb")
 
 @NamedQuery (name = "Product.findAllProducts", query = "SELECT p FROM Product p")
-
 @NamedQuery (name = "Product.findProductById", query = "SELECT p FROM Product p WHERE p.id = ?1")
 @NamedQuery (name = "Product.findProductByName", query = "SELECT p FROM Product p WHERE p.name = ?1")
 

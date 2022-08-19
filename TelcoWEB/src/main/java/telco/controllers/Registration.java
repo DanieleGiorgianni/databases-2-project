@@ -63,7 +63,7 @@ public class Registration extends HttpServlet {
 				// Sets registrationMsg variable in registration.html to the following message.
 				ctx.setVariable("registrationMsg", "Registration OK");
 				// "path" is the template name.
-				path = "/WEB-INF/confirmation.html";
+				path = "/WEB-INF/login.html";
 				templateEngine.process(path, ctx, response.getWriter());
 				return;
 			}	

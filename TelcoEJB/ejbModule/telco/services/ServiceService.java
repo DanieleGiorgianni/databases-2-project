@@ -26,7 +26,7 @@ public class ServiceService {
 		return em.find(Service.class, serviceId);
 	}
 	
-	public List<Service> findServiceByType() {
-		return em.createNamedQuery("Service.findServiceByType", Service.class).getResultList();
+	public Service findServiceByType(String type) {
+		return em.createNamedQuery("Service.findServiceByType", Service.class).setParameter(1, type).getSingleResult();
 	}
 }

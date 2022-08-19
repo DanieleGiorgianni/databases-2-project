@@ -40,8 +40,8 @@ public class PackageService {
 		return em.find(Package.class, packageId);
 	}
 	
-	public List<Package> findPackageByName() {
-		return em.createNamedQuery("Package.findPackageByName", Package.class).getResultList();
+	public Package findPackageByName(String name) {
+		return em.createNamedQuery("Package.findPackageByName", Package.class).setParameter(1, name).getSingleResult();
 	}
 	
 	public List<Product> findProductsByPackageId (int packageId) {

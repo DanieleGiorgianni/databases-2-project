@@ -18,9 +18,8 @@ import javax.persistence.Table;
 @Table (name = "alert", schema = "telcodb")
 
 @NamedQuery (name = "Alert.findAllAlerts", query = "SELECT a FROM Alert a")
-@NamedQuery (name = "Alert.findAlertByUser", query = "SELECT a FROM Alert a WHERE a.username = ?1")
-
 @NamedQuery (name = "Alert.findAlertById", query = "SELECT a FROM Alert a WHERE a.id = ?1")
+@NamedQuery (name = "Alert.findAlertByUser", query = "SELECT a FROM Alert a WHERE a.username = ?1")
 
 public class Alert implements Serializable {
 	

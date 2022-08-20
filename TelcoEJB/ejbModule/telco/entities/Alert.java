@@ -30,8 +30,8 @@ public class Alert implements Serializable {
 	private int id;
 	
 	//Attributes
-	private String username;
-	private String email;
+	private String username; // ? useless since we have user
+	private String email;	//same
 	private int amount;
 	private Timestamp lastdatetime;
 	

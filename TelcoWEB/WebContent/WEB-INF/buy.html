@@ -68,6 +68,18 @@
 				</tr>
 			</table>
 			
+			<form th:action="@{/ManageOrder}" method="GET">
+				<input type="hidden" name="monthlyfee" th:value="${monthlyfee}">
+				<input type="hidden" name="startdate" th:value="${startdate}">
+				<input type="hidden" name="packageId" th:value="${package.id}">
+				<input type="hidden" name="validityfeeId" th:value="${validityfee.id}">
+				<p th:if="${!products.empty}" th:each="p : ${products}">
+					<input type="hidden" name="productId" th:value="${p.id}">
+				</p>
+				<label for="payment">Payment: </label>
+				<input type="submit" name="payment" value="OK" style="color: green">
+				<input type="submit" name="payment" value="FAIL" style="color: red">
+			</form>
 		</div>
 	</div>
 </body>

@@ -1,7 +1,9 @@
 package telco.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -35,7 +37,8 @@ public class Order implements Serializable {
 	//Attributes
 	private int monthlyfee;
 	private Timestamp purchasedate;
-	private int validityperiod;
+	private Date startdate;
+	//private int validityperiod; whit validityfeeid is useless
 	private int fails;
 	private boolean valid;
 	
@@ -44,7 +47,7 @@ public class Order implements Serializable {
 	//Relationship
 	@ManyToOne
 	@JoinColumn (name = "userid")  //need to add field "userid" in order table as foreign key
-	private User user; 
+	private User user;
 	
 	@ManyToOne 
 	@JoinColumn (name = "packageid")
@@ -57,7 +60,7 @@ public class Order implements Serializable {
 	@ManyToMany
 	@JoinTable (name = "order_comprises_product", joinColumns = @JoinColumn (name = "orderid"),
 	inverseJoinColumns = @JoinColumn (name = "productid"))
-	private List<Product> products;
+	private List<Product> products = new ArrayList<Product>();
 	
 	@OneToOne (mappedBy = "order")
 	private Sas sas;
@@ -87,12 +90,12 @@ public class Order implements Serializable {
 		this.purchasedate = purchasedate;
 	}
 
-	public int getValidity() {
-		return validityperiod;
+	public Date getStartdate() {
+		return startdate;
 	}
 
-	public void setValidity(int validity) {
-		this.validityperiod = validity;
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
 	}
 
 	public int getFails() {
@@ -118,15 +121,7 @@ public class Order implements Serializable {
 	public void setPack(Package pack) {
 		this.pack = pack;
 	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
+	
 	public ValidityFee getValidityfee() {
 		return validityfee;
 	}
@@ -135,6 +130,14 @@ public class Order implements Serializable {
 		this.validityfee = validityfee;
 	}
 
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+	
 	public Sas getSas() {
 		return sas;
 	}
@@ -151,11 +154,11 @@ public class Order implements Serializable {
 		this.valid = valid;
 	}
 
-	public int getValidityperiod() {
-		return validityperiod;
-	}
-
-	public void setValidityperiod(int validityperiod) {
-		this.validityperiod = validityperiod;
-	}	
+//	public int getValidityperiod() {
+//		return validityperiod;
+//	}
+//
+//	public void setValidityperiod(int validityperiod) {
+//		this.validityperiod = validityperiod;
+//	}	
 }

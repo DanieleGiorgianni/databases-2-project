@@ -38,7 +38,6 @@ public class Order implements Serializable {
 	private int monthlyfee;
 	private Timestamp purchasedate;
 	private Date startdate;
-	//private int validityperiod; whit validityfeeid is useless
 	private int fails;
 	private boolean valid;
 	
@@ -153,12 +152,4 @@ public class Order implements Serializable {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
-
-//	public int getValidityperiod() {
-//		return validityperiod;
-//	}
-//
-//	public void setValidityperiod(int validityperiod) {
-//		this.validityperiod = validityperiod;
-//	}	
 }

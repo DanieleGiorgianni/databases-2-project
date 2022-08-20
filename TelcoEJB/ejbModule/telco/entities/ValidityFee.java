@@ -79,5 +79,4 @@ public class ValidityFee implements Serializable{
 	public void setPackages(List<Package> packages) {
 		this.packages = packages;
 	}
-	
 }

@@ -11,15 +11,19 @@ import javax.persistence.PersistenceException;
 import telco.entities.User;
 import telco.exceptions.CredentialsException;
 
-/* UserService is an Enterprise Java Bean.
+/* 
+ * UserService is an Enterprise Java Bean.
  * Enterprise Java Beans are the software components that implement server-side
  * the business logic of a web application within the Java EE architecture 
- * by performing services in favor of the front-end part. */
+ * by performing services in favor of the front-end part.
+ */
 @Stateless // Does not maintain a conversational state with the client.
 public class UserService {
 	
-	/* Persistence Context is a set of objects that need to be managed 
-	 * and tracked in their changes by the Entity Manager. */
+	/* 
+	 * Persistence Context is a set of objects that need to be managed 
+	 * and tracked in their changes by the Entity Manager. 
+	 */
 	@PersistenceContext (unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Persistence Context.
 
@@ -61,8 +65,8 @@ public class UserService {
 			newUser.setUsername(username);
 			newUser.setEmail(email);
 			newUser.setPassword(password);
-			em.persist(newUser); // Persist an entity instance in the database
-			em.flush(); // Writes the state of entities to the database immediately
+			em.persist(newUser); // Persist an entity instance in the database.
+			em.flush(); // Writes the state of entities to the database immediately.
 			
 			System.out.println("Registration in UserService OK");
 			

@@ -33,7 +33,7 @@ public class Sas implements Serializable {
 	//Attributes
 	private Date deactivationdate;
 	
-	public Sas () {}
+	public Sas() {}
 	
 	//Relationships
 	@OneToOne 

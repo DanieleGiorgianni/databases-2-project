@@ -39,7 +39,7 @@ public class OrderService {
 		return em.createNamedQuery("Order.findRejectedOrders", Order.class).getResultList();
 	}
 
-	public void createOrder(int monthlyfee, Timestamp purchasedate, Date startdate, int fails, boolean valid,
+	public Order createOrder(int monthlyfee, Timestamp purchasedate, Date startdate, int fails, boolean valid,
 			User user, Package pack, ValidityFee validityfee, List<Product> products) {
 		Order order = new Order();
 		order.setMonthlyfee(monthlyfee);
@@ -55,5 +55,6 @@ public class OrderService {
 		em.persist(order);
 		em.flush();
 		System.out.println("createOrder in OrderService DONE");
+		return order;
 	}
 }

@@ -36,14 +36,14 @@ public class SasService {
 	}
 	
 	public void createSas(Date deactivationDate, Order order, User user) {
-		Sas sas = new Sas ();
+		Sas sas = new Sas();
 		sas.setDeactivationdate(deactivationDate);
 		sas.setOrder(order);
 		sas.setUser(user);
+		
 		em.persist(sas);
 		em.flush();
-		
-		System.out.println ("SasService: Sas correctly created");
+		System.out.println ("createSas in SasService DONE");
 	}
 
 }

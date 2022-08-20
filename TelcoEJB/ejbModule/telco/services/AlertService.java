@@ -40,11 +40,10 @@ public class AlertService {
 		
 		em.persist(alert);
 		em.flush();
-		
-		System.out.println("AlertService: Alert correctly created !");	
+		System.out.println("createAlert in AlertService DONE");	
 	}
 	
-	public void deleteAlert (User user) {
+	public void deleteAlert(User user) {
 		Alert a = findAlertByUser (user.getUsername());
 		if (a != null) {
 			em.remove(a);

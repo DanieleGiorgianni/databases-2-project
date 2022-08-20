@@ -19,6 +19,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import telco.entities.Order;
 import telco.entities.Package;
 import telco.entities.Product;
 import telco.entities.User;
@@ -26,6 +27,7 @@ import telco.entities.ValidityFee;
 import telco.services.OrderService;
 import telco.services.PackageService;
 import telco.services.ProductService;
+import telco.services.SasService;
 import telco.services.ValidityFeeService;
 
 @WebServlet ("/ManageOrder")
@@ -44,6 +46,9 @@ public class ManageOrder extends HttpServlet{
 	
 	@EJB (name = "telco.services/OrderService")
 	private OrderService orderService;
+	
+	@EJB (name = "telco.services/SasService")
+	private SasService sasService;
 	
 	public ManageOrder() {
 		super();
@@ -97,26 +102,28 @@ public class ManageOrder extends HttpServlet{
 			for (String productIdString : productsIdStrings) {
 				productId = Integer.parseInt(productIdString);
 				products.add(productService.findProductById(productId));
-				System.out.println("> " + productId);
 			}
 		}
 		else {
 			products = null;
-			System.out.println("> productId is NULL");
 		}
 		
 		String payment = request.getParameter("payment");
+		// Correct payment.
 		if (payment.contains("OK")) {
 			System.out.println("> Payment OK");
 			purchasedate = new Timestamp(System.currentTimeMillis());
 			fails = 0;
 			valid = true;
 			
-			// Correct order creation
-			orderService.createOrder(monthlyfee, purchasedate, startdate, fails, valid, user, pack, validityfee, products);
+			Order order = null;
+			order = orderService.createOrder(monthlyfee, purchasedate, startdate, fails, valid, user, pack, validityfee, products);
 			
-			// TODO sas creation (if payment is OK)
+			// sas creation (if payment is OK).
+			Date deactivationdate = Date.valueOf(startdate.toLocalDate().plusMonths(validityfee.getMonths()));
+			sasService.createSas(deactivationdate, order, user);
 		}
+		// Failed payment.
 		else {
 			System.out.println("> Payment FAIL");
 			// TODO

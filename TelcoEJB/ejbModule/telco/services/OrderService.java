@@ -57,4 +57,15 @@ public class OrderService {
 		System.out.println("createOrder in OrderService DONE");
 		return order;
 	}
+	
+	public void fixOrder(Order fixOrder) {
+		Order order = findOrderById(fixOrder.getId());
+		order.setPurchasedate(fixOrder.getPurchasedate());
+		order.setFails(fixOrder.getFails());
+		order.setValid(fixOrder.isValid());
+		
+		em.persist(order);
+		em.flush();
+		System.out.println("fixOrder in OrderService DONE");
+	}
 }

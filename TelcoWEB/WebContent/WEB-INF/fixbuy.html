@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Telco - Fix Buy Page</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"></link>
+</head>
+
+<body>
+	<div class="page-title">
+		<h1>Telco Fix Buy Page</h1>
+	</div>
+	
+	<div class="page-content">
+		<div class="username-box" th:if="${session.user != null}">
+			<div style="margin: 2px 5px;">
+				<span style="font-size: 1.2em;" th:text="${session.user.username}"></span><br>
+				<a th:href="@{/Logout}">Logout</a>
+			</div>
+		</div>
+		<h2>The package you had selected was the following.</h2>
+		<h3>These are its specifications, including the optional products you have chosen.</h3>
+		
+		<div class="config-div">
+			<h4 th:text="${failedOrder.getPack().getName()}"></h4>
+			<table style="margin: auto;">
+				<tr><th>Services</th></tr>
+			  	<tr th:each="s : ${failedOrder.getPack().getServices()}"><td>
+			  		<p th:text="${s.type}"></p>
+			  		<ul style="text-align: left; padding: 0px 20px 0px 40px;">
+			        	<li th:if="${s.getMinsnum() != 0}">Mins num: <span th:text="${s.minsnum}"></span></li>
+			            <li th:if="${s.getMinsfee() != 0}">Mins extra fee: <span th:text="${s.minsfee}"></span></li>
+			            <li th:if="${s.getSmsnum() != 0}">Sms num: <span th:text="${s.smsnum}"></span></li>
+			            <li th:if="${s.getSmsfee() != 0}">Sms extra fee: <span th:text="${s.smsfee}"></span></li>
+			            <li th:if="${s.getGiganum() != 0}">Giga num: <span th:text="${s.giganum}"></span></li>
+			            <li th:if="${s.getGigafee() != 0}">Giga extra fee: <span th:text="${s.gigafee}"></span></li>
+			        </ul>
+			  	</td></tr>
+			</table>
+
+			<table style="margin: 0px auto 20px auto;" th:if="${!failedOrder.getProducts().empty}">
+				<tr><th>Products</th></tr>
+				<tr th:each="p : ${failedOrder.getProducts()}">
+					<td th:text="${p.name} + ' at ' + ${p.monthlyfee} + ' EUR per month'"></td>
+				</tr>
+			</table>
+
+			<table style="margin: 0px auto 20px auto;">
+				<tr><th>Validity</th></tr>
+				<tr>
+					<td th:text="${failedOrder.getValidityfee().months} + ' months'"></td>
+				</tr>
+			</table>
+			
+			<table style="margin: 0px auto 20px auto;">
+				<tr><th colspan="2">Total for <span th:text="${failedOrder.getValidityfee().months} + ' months'"></span></th></tr>
+				<tr th:with="totalfee=${failedOrder.monthlyfee * failedOrder.getValidityfee().months}">
+					<td th:text="${totalfee} + ' EUR '"></td>
+					<td th:text="'(' + ${failedOrder.monthlyfee} + ' EUR per month)'"></td>
+				</tr>
+			</table>
+			
+			<table style="margin: 0px auto 20px auto;">
+				<tr><th colspan="2">Starting date</th></tr>
+				<tr>
+					<td th:text="${failedOrder.startdate}"></td>
+				</tr>
+			</table>
+			
+			<form th:action="@{/FixOrder}" method="GET">
+				<input type="hidden" name="failedOrderId" th:value="${failedOrder.id}">
+				<label for="payment">Payment: </label>
+				<input type="submit" name="payment" value="OK" style="color: green">
+				<input type="submit" name="payment" value="FAIL" style="color: red">
+			</form>
+		</div>
+	</div>
+</body>
+</html>

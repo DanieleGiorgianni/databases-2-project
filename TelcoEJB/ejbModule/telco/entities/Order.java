@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @NamedQuery (name = "Order.findAllOrders", query = "SELECT o FROM Order o")
 @NamedQuery (name = "Order.findOrderById", query = "SELECT o FROM Order o WHERE o.id = ?1")
 
-@NamedQuery (name = "Order.findRejectedOrders", query = "SELECT o FROM Order o WHERE o.valid = TRUE")
+@NamedQuery (name = "Order.findRejectedOrders", query = "SELECT o FROM Order o WHERE o.valid = FALSE")
 
 public class Order implements Serializable {
 	

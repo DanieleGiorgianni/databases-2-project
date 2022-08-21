@@ -1,7 +1,6 @@
 package telco.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -17,22 +16,17 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import telco.entities.Order;
-import telco.entities.Package;
 import telco.services.OrderService;
-import telco.services.PackageService;
 
-@WebServlet ("/GoToHome")
-public class GoToHome extends HttpServlet {
+@WebServlet ("/GoToFixBuy")
+public class GoToFixBuy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
-	@EJB (name = "telco.services/PackageService")
-	private PackageService packageService;
-	
 	@EJB (name = "telco.services/OrderService")
 	private OrderService orderService;
-
-	public GoToHome() {
+	
+	public GoToFixBuy() {
 		super();
 	}
 
@@ -44,26 +38,24 @@ public class GoToHome extends HttpServlet {
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet in GoToHome");
+		System.out.println("doGet in GoToFixBuy");
 		
-		String path = "/WEB-INF/home.html";
+		String path = "/WEB-INF/fixbuy.html";
 		
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		// Packages setup.
-		List<Package> packages = null;
-		packages = packageService.findAllPackages();	
-		ctx.setVariable("packages", packages);
+		Integer failedOrderId = null;
+		Order failedOrder = null;
 		
-		// Failed order(s).
-		List<Order> failedOrders = null;
-		failedOrders = orderService.findRejectedOrders();
-		ctx.setVariable("failedOrders", failedOrders);
+		failedOrderId = Integer.parseInt(request.getParameter("failedOrderId"));
+		failedOrder = orderService.findOrderById(failedOrderId);
 		
-		// TODO alert setup
+		if (failedOrder != null) {
+			ctx.setVariable("failedOrder", failedOrder);
+		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}

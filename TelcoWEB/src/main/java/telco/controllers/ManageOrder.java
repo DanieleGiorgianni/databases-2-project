@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -65,9 +64,6 @@ public class ManageOrder extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in ManageOrder");
-		
-		ServletContext servletContext = getServletContext();
-		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		// Values to be obtained from request.
 		Integer monthlyfee = 0;
@@ -126,10 +122,13 @@ public class ManageOrder extends HttpServlet{
 		// Failed payment.
 		else {
 			System.out.println("> Payment FAIL");
-			// TODO
+			purchasedate = null;
+			fails = 1;
+			valid = false;
+			
+			Order orderFailed = null;
+			orderFailed = orderService.createOrder(monthlyfee, purchasedate, startdate, fails, valid, user, pack, validityfee, products);
 		}
-		
-		// TODO
 		
 		String path = getServletContext().getContextPath() + "/GoToHome";
 		response.sendRedirect(path);

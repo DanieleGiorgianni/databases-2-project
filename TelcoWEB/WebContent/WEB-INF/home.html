@@ -25,37 +25,6 @@
 		
 		<div th:if="${packages == null}">
 			<h4>There are currently no packages available. Check back later, thank you.</h4>
-			<div class="package-container">
-				<div class="package-div">
-					<p><b><a class="no-style" href="#">Package Name Test 1</a></b></p>
-					<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
-						<tr><th>Services</th></tr>
-					  	<tr><td>S1</td></tr>
-					  	<tr><td>S2</td></tr>
-					</table>
-					<p>Monthly fee: 19.99 Euro</p>
-				</div>
-				<div class="package-div">
-					<p><b><a class="no-style" href="#">Package Name Test 2</a></b></p>
-					<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
-						<tr><th>Services</th></tr>
-					  	<tr><td>S3</td></tr>
-					  	<tr><td>S4</td></tr>
-					  	<tr><td>S5</td></tr>
-					  	<tr><td>S6</td></tr>
-					</table>
-					<p>Monthly fee: 19.99 Euro</p>
-				</div>
-				<div class="package-div">
-					<p><b><a class="no-style" href="#">Package Name Test 3</a></b></p>
-					<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
-						<tr><th>Services</th></tr>
-					  	<tr><td>S7</td></tr>
-					  	<tr><td>S8</td></tr>
-					</table>
-					<p>Monthly fee: 19.99 Euro</p>
-				</div>
-			</div>
 		</div>
 		
 		<div th:if="${packages != null}">
@@ -79,8 +48,24 @@
 					</table>
 				</div>
 			</div>
-			
 		</div>
+		
+		<div th:if="${!failedOrders.empty}">
+			<h4>Packages still to be paid.</h4>
+			<form th:action="@{/GoToFixBuy}" method="GET">
+				<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
+					<tr><th colspan="2">Click on the Buy button to purchase the corresponding order.</th></tr>
+					<tr th:each="fo : ${failedOrders}">
+						<td th:text="${fo.getPack().getName()}"></td>
+						<td>
+							<input type="hidden" name="failedOrderId" th:value="${fo.id}">
+							<input type="submit" value="Buy">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
 	</div>
 </body>
 </html>

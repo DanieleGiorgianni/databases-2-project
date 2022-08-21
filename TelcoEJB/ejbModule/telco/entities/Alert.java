@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 @NamedQuery (name = "Alert.findAllAlerts", query = "SELECT a FROM Alert a")
 @NamedQuery (name = "Alert.findAlertById", query = "SELECT a FROM Alert a WHERE a.id = ?1")
-@NamedQuery (name = "Alert.findAlertByUser", query = "SELECT a FROM Alert a WHERE a.username = ?1")
+@NamedQuery (name = "Alert.findAlertByUser", query = "SELECT a FROM Alert a WHERE a.user = ?1")
 
 public class Alert implements Serializable {
 	
@@ -30,8 +30,6 @@ public class Alert implements Serializable {
 	private int id;
 	
 	//Attributes
-	private String username; // ? useless since we have user
-	private String email;	//same
 	private int amount;
 	private Timestamp lastdatetime;
 	
@@ -51,18 +49,6 @@ public class Alert implements Serializable {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public int getAmount() {
 		return amount;

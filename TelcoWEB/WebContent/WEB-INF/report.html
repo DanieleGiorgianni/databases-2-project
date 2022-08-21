@@ -24,16 +24,16 @@
 		<div>
 			<div class = "package-container">
 				<div class = "package-div">
-					<h3> List of Insolvent Users </h3>
-						<table>
-							<tbody>
-								<tr th:each="u : ${insolventUsers}">
-									<td>UserId: <span th:text="${u.id}"></span></td>
-									<td th:text="'UserId: ' + ${u.id}"></td>
-									<td th:text="${u.username}"></td>
-								</tr>
-							</tbody>
-						</table>
+					<h3>List of Insolvent Users</h3>
+					<table>
+						<tbody>
+							<tr th:each="u : ${insolventUsers}">
+								<td>UserId: <span th:text="${u.id}"></span></td>
+								<td th:text="'UserId: ' + ${u.id}"></td>
+								<td th:text="'Username: ' + ${u.username}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -41,17 +41,18 @@
 		<div>
 			<div class = "package-container">
 				<div class = "package-div">
-					<h3> List of Rejected Orders </h3>
-						<table>
-							<tbody>
-								<tr th:each="o : ${rejectedOrders}">
-									<td th:text="${o.id}"></td>
-									<td th:text="${o.monthlyfee}"></td>
-									<td th:text="${o.validityperiod}"></td>
-									<td th:text="${o.purchasedate}"></td>
-								</tr>
-							</tbody>
-						</table>
+					<h3>List of Rejected Orders</h3>
+					<table>
+						<tbody>
+							<tr th:each="o : ${rejectedOrders}">
+								<td th:text="'OrderId: ' + ${o.id}"></td>
+								<td th:text="'MonthlyFee: ' + ${o.monthlyfee}"></td>
+								<td th:text="'StartDate ' + ${o.startdate}"></td>
+								<td th:text="'PurchaseDate: ' + ${o.purchasedate}"></td>
+								<td th:text="'Fails: ' + ${o.fails}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -59,17 +60,17 @@
 		<div>
 			<div class = "package-container">
 				<div class = "package-div">
-					<h3> List of All Alerts </h3>
-						<table>
-							<tbody>
-								<tr th:each="a : ${totalAlerts}">
-									<td th:text="${a.id}"></td>
-									<td th:text="${a.username}"></td>
-									<td th:text="${a.amount}"></td>
-									<td th:text="${a.lastdatetime}"></td>
-								</tr>
-							</tbody>
-						</table>
+					<h3>List of All Alerts</h3>
+					<table>
+						<tbody>
+							<tr th:each="a : ${totalAlerts}">
+								<td th:text="'AlertId: ' + ${a.id}"></td>
+								<td th:text="'Username: ' + ${a.username}"></td>
+								<td th:text="'Amount: ' + ${a.amount}"></td>
+								<td th:text="'LastDateTime: ' + ${a.lastdatetime}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

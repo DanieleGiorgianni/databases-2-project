@@ -26,14 +26,12 @@ public class AlertService {
 		return em.createNamedQuery("Alert.findAllAlerts", Alert.class).getResultList();
 	}
 	
-	public Alert findAlertByUser(String username) { //wouldn't it be better to use userId instead of username?
-		return em.createNamedQuery("Alert.findAlertByUser", Alert.class).setParameter(1, username).getSingleResult();
+	public Alert findAlertByUser(User user) {
+		return em.createNamedQuery("Alert.findAlertByUser", Alert.class).setParameter(1, user).getSingleResult();
 	}
 	
 	public void createAlert(User user, int amount, Timestamp lastDate) {
 		Alert alert = new Alert();
-		alert.setUsername(user.getUsername());
-		alert.setEmail(user.getEmail());
 		alert.setAmount(amount);
 		alert.setLastdatetime(lastDate);
 		alert.setUser(user);
@@ -44,7 +42,7 @@ public class AlertService {
 	}
 	
 	public void deleteAlert(User user) {
-		Alert a = findAlertByUser (user.getUsername());
+		Alert a = findAlertByUser(user);
 		if (a != null) {
 			em.remove(a);
 			em.flush();

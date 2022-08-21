@@ -16,8 +16,10 @@ import telco.entities.ValidityFee;
 @Stateless
 public class PackageService {
 	
-	/* Persistence Context is a set of objects that need to be managed 
-	 * and tracked in their changes by the Entity Manager. */
+	/* 
+	 * Persistence Context is a set of objects that need to be managed 
+	 * and tracked in their changes by the Entity Manager.
+	 */
 	@PersistenceContext (unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Persistence Context.
 	
@@ -53,7 +55,7 @@ public class PackageService {
 	}
 	
 	public String createPackage(String name, String[] validity, String[] services, String[] products) {
-		//Check if already exists a package with the same name
+		// Check if already exists a package with the same name.
 		List<Package> packs = findAllPackages();
 		for (Package p : packs) {
 			if (p.getName().equals(name))

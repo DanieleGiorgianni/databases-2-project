@@ -21,7 +21,6 @@ import javax.persistence.Table;
 @NamedQuery (name = "Package.findAllPackages", query = "SELECT p FROM Package p")
 @NamedQuery (name = "Package.findPackageById", query = "SELECT p FROM Package p WHERE p.id = ?1")
 @NamedQuery (name = "Package.findPackageByName", query = "SELECT p FROM Package p WHERE p.name = ?1")
-//@NamedQuery (name = "Package.findPackageValidityFee", query = "SELECT p.validity FROM Package p")
 
 public class Package implements Serializable {
 	
@@ -33,8 +32,6 @@ public class Package implements Serializable {
 	
 	//Attributes
 	private String name;
-	//private int validity;		/*useless since validityfee*/
-	//private int monthlyfee;	/*useless since validityfee*/
 	
 	public Package() {}
 	
@@ -74,18 +71,6 @@ public class Package implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-//	public int getValidity() {
-//		return validity;
-//	}
-//	public void setValidity(int validity) {
-//		this.validity = validity;
-//	}
-//	public int getMonthlyfee() {
-//		return monthlyfee;
-//	}
-//	public void setMonthlyfee(int monthlyfee) {
-//		this.monthlyfee = monthlyfee;
-//	}
 	public List<Order> getOrders() {
 		return orders;
 	}

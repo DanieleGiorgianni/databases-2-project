@@ -39,7 +39,7 @@
 			  	</td></tr>
 			</table>
 
-			<table style="margin: 0px auto 20px auto;" th:if="${!failedOrder.getProducts().empty}">
+			<table style="margin: 0px auto 20px auto;" th:if="${failedOrder.getProducts() != null}">
 				<tr><th>Products</th></tr>
 				<tr th:each="p : ${failedOrder.getProducts()}">
 					<td th:text="${p.name} + ' at ' + ${p.monthlyfee} + ' EUR per month'"></td>

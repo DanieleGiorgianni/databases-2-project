@@ -31,7 +31,34 @@
 			<h4>Click on the package you want to purchase to complete the order.</h4>
 			<div class="package-container">
 				<div class="package-div" th:each="p : ${packages}">
-					<p><b><a class="no-style" th:href="@{/GoToConfigure(packageId=${p.id})}" th:text="${p.name}"></a></b></p>
+				
+					<form th:action="@{/GoToConfigure}" method="GET">
+						<p style="font-weight: bold;" th:text="${p.getName()}"></p>
+						<table style="text-align: center; margin: 5px auto;" th:if="${!p.getServices().empty}">
+							<tr><th colspan="7">Services</th></tr>
+							<tr>
+								<td>Type</td>
+								<td>Mins num</td>
+								<td>Mins extra fee</td>
+								<td>Sms num</td>
+								<td>Sms extra fee</td>
+								<td>Giga num</td>
+								<td>Giga extra fee</td>
+							</tr>
+							<tr th:each="s : ${p.getServices()}">
+								<td th:text="${s.getType()}"></td>
+								<td th:text="${s.getMinsnum()}"></td>
+								<td th:text="${s.getMinsfee()}"></td>
+								<td th:text="${s.getSmsnum()}"></td>
+								<td th:text="${s.getSmsfee()}"></td>
+								<td th:text="${s.getGiganum()}"></td>
+								<td th:text="${s.getGigafee()}"></td>
+							</tr>						
+						</table>
+						<button style="margin: 5px auto 10px auto;" name="packageId" type="submit" th:value="${p.getId()}">Configure</button>
+					</form>
+				
+					<!-- <p><b><a class="no-style" th:href="@{/GoToConfigure(packageId=${p.id})}" th:text="${p.name}"></a></b></p>
 					<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
 						<tr><th>Services</th></tr>
 					  	<tr th:each="s : ${p.getServices()}"><td>
@@ -45,12 +72,13 @@
 					            <li th:if="${s.getGigafee() != 0}">Giga extra fee: <span th:text="${s.gigafee}"></span></li>
 					        </ul>
 					  	</td></tr>
-					</table>
+					</table> -->
+					
 				</div>
 			</div>
 		</div>
 		
-		<div th:if="${!failedOrders.empty}">
+		<div th:if="${session.user != null and !failedOrders.empty}">
 			<h4>Packages still to be paid.</h4>
 			<form th:action="@{/GoToFixBuy}" method="GET">
 				<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">

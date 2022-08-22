@@ -70,17 +70,44 @@ public class GoToBuy extends HttpServlet {
 		int monthlyfee = 0;
 		int totalfee = 0;
 		
-		packageId = Integer.parseInt(request.getParameter("packageId"));
-		pack = packageService.findPackageById(packageId);
-		productsIdStrings = request.getParameterValues("productId");
-		if (productsIdStrings != null) {
-			for (String productIdString : productsIdStrings) {
-				productId = Integer.parseInt(productIdString);
-				products.add(productService.findProductById(productId));
+		// No order without login is available.
+		if (request.getSession().getAttribute("orderNoLogin") != "yes") {
+			packageId = Integer.parseInt(request.getParameter("packageId"));
+			pack = packageService.findPackageById(packageId);
+			productsIdStrings = request.getParameterValues("productId");
+			if (productsIdStrings != null) {
+				for (String productIdString : productsIdStrings) {
+					productId = Integer.parseInt(productIdString);
+					products.add(productService.findProductById(productId));
+				}
 			}
+			validityFee = validityFeeService.findValidityFeeById(Integer.parseInt(request.getParameter("validityfeeId")));
+			startDate = Date.valueOf(request.getParameter("startdate"));
 		}
-		validityFee = validityFeeService.findValidityFeeById(Integer.parseInt(request.getParameter("validityfeeId")));
-		startDate = Date.valueOf(request.getParameter("startdate"));
+		// An unlogged user tried to purchase a package.
+		else {
+			packageId = Integer.parseInt((String)request.getSession().getAttribute("packageId"));
+			pack = packageService.findPackageById(packageId);
+			productsIdStrings = (String[]) request.getSession().getAttribute("productId");
+			if (productsIdStrings != null) {
+				for (String productIdString : productsIdStrings) {
+					productId = Integer.parseInt(productIdString);
+					products.add(productService.findProductById(productId));
+				}
+			}
+			validityFee = validityFeeService.findValidityFeeById(Integer.parseInt((String) request.getSession().getAttribute("validityfeeId")));
+			startDate = Date.valueOf((String) request.getSession().getAttribute("startdate"));
+			
+			//Deleting session attributes.
+			request.getSession().removeAttribute("orderNoLogin");
+			request.getSession().removeAttribute("packageId");
+			request.getSession().removeAttribute("productId");
+			request.getSession().removeAttribute("validityfeeId");
+			request.getSession().removeAttribute("startdate");
+			
+			if ((String)request.getSession().getAttribute("orderNoLogin") == null)
+				System.out.println("> Deleting session attributes DONE");
+		}
 		
 		// Total monthly cost calculation
 		monthlyfee += validityFee.getMonthlyfee();

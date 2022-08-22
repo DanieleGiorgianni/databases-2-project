@@ -57,7 +57,7 @@ public class Login extends HttpServlet{
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		// Check if parameters are present
+		// Check if parameters are present.
 		if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
 			ctx.setVariable("loginMsg", "Incorrect username or password");
 			path = "/WEB-INF/login.html";
@@ -65,14 +65,33 @@ public class Login extends HttpServlet{
 		}
 		
 		try {
-			// Obtaining a (possible) user given specified username and password
+			// Obtaining a (possible) user given specified username and password.
 			user = userService.login(username, password);
 			if (user != null) {
 				request.getSession().setAttribute("user", user);
 				
-				path = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path);
-				
+				// No order without login is available.
+				if (request.getSession().getAttribute("orderNoLogin") != "yes") {
+					path = getServletContext().getContextPath() + "/GoToHome";
+					response.sendRedirect(path);
+				}
+				// An unlogged user tried to purchase a package.
+				else {
+					String packageId = (String) request.getSession().getAttribute("packageId");
+					String[] productId = (String[]) request.getSession().getAttribute("productId");
+					String validityfeeId = (String) request.getSession().getAttribute("validityfeeId");
+					String startdate = (String) request.getSession().getAttribute("startdate");
+					
+					// TODO (Remove) Print test
+					System.out.println("> packageId: " + packageId);				
+					for (String p : productId)
+						System.out.println("> productId: " + p);				
+					System.out.println("> validityfeeId: " + validityfeeId);
+					System.out.println("> startdate: " + startdate);
+					
+					path = getServletContext().getContextPath() + "/GoToBuy";
+					response.sendRedirect(path);
+				}
 				return;
 			}
 		} catch (NonUniqueResultException | CredentialsException e) {

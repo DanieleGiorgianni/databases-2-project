@@ -38,6 +38,10 @@ public class OrderService {
 	public List<Order> findRejectedOrders() {
 		return em.createNamedQuery("Order.findRejectedOrders", Order.class).getResultList();
 	}
+	
+	public List<Order> findRejectedOrdersByUser(User user) {
+		return em.createNamedQuery("Order.findRejectedOrdersByUser", Order.class).setParameter(1, user).getResultList();
+	}
 
 	public Order createOrder(int monthlyfee, Timestamp purchasedate, Date startdate, int fails, boolean valid,
 			User user, Package pack, ValidityFee validityfee, List<Product> products) {

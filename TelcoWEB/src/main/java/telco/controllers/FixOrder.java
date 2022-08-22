@@ -17,8 +17,11 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import telco.entities.Order;
+import telco.entities.User;
+import telco.services.AlertService;
 import telco.services.OrderService;
 import telco.services.SasService;
+import telco.services.UserService;
 
 @WebServlet ("/FixOrder")
 public class FixOrder extends HttpServlet{
@@ -30,6 +33,12 @@ public class FixOrder extends HttpServlet{
 	
 	@EJB (name = "telco.services/SasService")
 	private SasService sasService;
+	
+	@EJB (name = "telco.services/UserService")
+	private UserService userService;
+	
+	@EJB (name = "telco.services/AlertService")
+	private AlertService alertService;
 	
 	public FixOrder() {
 		super();
@@ -51,6 +60,9 @@ public class FixOrder extends HttpServlet{
 		Order order = null;
 		order = orderService.findOrderById(failedOrderId);
 		
+		User user = null;
+		user = order.getUser();
+		
 		String payment = request.getParameter("payment");
 		// Correct payment.
 		if (payment.contains("OK")) {
@@ -65,6 +77,10 @@ public class FixOrder extends HttpServlet{
 			// sas creation (if payment is OK).
 			Date deactivationdate = Date.valueOf(order.getStartdate().toLocalDate().plusMonths(order.getValidityfee().getMonths()));
 			sasService.createSas(deactivationdate, order, order.getUser());
+			
+			userService.insolventManager(user);
+			
+			alertService.alertManager(user, new Timestamp(System.currentTimeMillis()));
 		}
 		// Failed payment.
 		else {
@@ -75,6 +91,10 @@ public class FixOrder extends HttpServlet{
 			order.setValid(false);
 			
 			orderService.fixOrder(order);
+			
+			// Unnecessary insolvent user setting, already done in ManageOrder.
+			
+			alertService.alertManager(user, new Timestamp(System.currentTimeMillis()));
 		}
 		
 		String path = getServletContext().getContextPath() + "/GoToHome";

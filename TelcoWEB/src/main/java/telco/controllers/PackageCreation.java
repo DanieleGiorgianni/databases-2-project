@@ -38,7 +38,7 @@ public class PackageCreation extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		//Check if parameters are present
+		// Check if parameters are present.
 		if (name == null || validityFees == null || services == null) {
 			string = "Incorret name or validityFee or service";
 			ctx.setVariable("packageMsg", string);

@@ -1,13 +1,16 @@
 package telco.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
+import telco.entities.Order;
 import telco.entities.User;
 import telco.exceptions.CredentialsException;
 
@@ -26,6 +29,9 @@ public class UserService {
 	 */
 	@PersistenceContext (unitName = "TelcoEJB")
 	private EntityManager em; // Interface for interacting with a Persistence Context.
+	
+	@EJB (name = "telco.services/OrderService")
+	private OrderService orderService;
 
 	public UserService() {}
 	
@@ -95,5 +101,27 @@ public class UserService {
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Impossible verify your credentials");
 		}
+	}
+	
+	public void insolventManager(User user) {
+		User usr = findUserById(user.getUserid());
+		List<Order>	rejectedOrders = new ArrayList<Order>();
+		rejectedOrders = orderService.findRejectedOrdersByUser(usr);
+		
+		//System.out.println("> insolventManager: List<Order> size = " + rejectedOrders.size());
+		for (Order rejectedOrder : rejectedOrders) {
+			if (rejectedOrder.getFails() != 0) {
+				usr.setInsolvent(true);
+				em.persist(usr);
+				em.flush();
+				System.out.println("insolventManager in UserService DONE (insolvent=true)");
+				return;
+			}
+		}
+		usr.setInsolvent(false);
+		
+		em.persist(usr);
+		em.flush();
+		System.out.println("insolventManager in UserService DONE (insolvent=false)");
 	}
 }

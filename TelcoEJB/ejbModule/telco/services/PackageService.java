@@ -78,7 +78,7 @@ public class PackageService {
 		}
 		pack.setServices(addServices);
 		
-		List<ValidityFee> addValidityFees = new ArrayList<ValidityFee> ();
+		List<ValidityFee> addValidityFees = new ArrayList<ValidityFee>();
 		for (String v : validity) {
 			Integer vId = Integer.parseInt(v);
 			ValidityFee addValidityFee = validityFeeService.findValidityFeeById(vId);

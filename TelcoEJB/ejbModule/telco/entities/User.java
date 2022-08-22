@@ -1,6 +1,7 @@
 package telco.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -36,10 +37,10 @@ public class User implements Serializable {
 	private Alert alert;
 	
 	@OneToMany (mappedBy = "user")
-	private List<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 	
 	@OneToMany (mappedBy = "user")
-	private List<Sas> sasses;
+	private List<Sas> sasses = new ArrayList<Sas>();
 	
 	//Getters and Setters
 	public int getUserid() {

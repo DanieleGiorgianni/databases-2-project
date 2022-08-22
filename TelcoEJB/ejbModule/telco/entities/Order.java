@@ -25,6 +25,7 @@ import javax.persistence.Table;
 @NamedQuery (name = "Order.findOrderById", query = "SELECT o FROM Order o WHERE o.id = ?1")
 
 @NamedQuery (name = "Order.findRejectedOrders", query = "SELECT o FROM Order o WHERE o.valid = FALSE")
+@NamedQuery (name = "Order.findRejectedOrdersByUser", query = "SELECT o FROM Order o WHERE o.valid = FALSE AND o.user = ?1")
 
 public class Order implements Serializable {
 	
@@ -45,7 +46,7 @@ public class Order implements Serializable {
 	
 	//Relationship
 	@ManyToOne
-	@JoinColumn (name = "userid")  //need to add field "userid" in order table as foreign key
+	@JoinColumn (name = "userid")
 	private User user;
 	
 	@ManyToOne 

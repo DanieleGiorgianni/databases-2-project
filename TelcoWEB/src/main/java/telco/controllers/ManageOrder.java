@@ -23,10 +23,12 @@ import telco.entities.Package;
 import telco.entities.Product;
 import telco.entities.User;
 import telco.entities.ValidityFee;
+import telco.services.AlertService;
 import telco.services.OrderService;
 import telco.services.PackageService;
 import telco.services.ProductService;
 import telco.services.SasService;
+import telco.services.UserService;
 import telco.services.ValidityFeeService;
 
 @WebServlet ("/ManageOrder")
@@ -48,6 +50,12 @@ public class ManageOrder extends HttpServlet{
 	
 	@EJB (name = "telco.services/SasService")
 	private SasService sasService;
+	
+	@EJB (name = "telco.services/UserService")
+	private UserService userService;
+	
+	@EJB (name = "telco.services/AlertService")
+	private AlertService alertService;
 	
 	public ManageOrder() {
 		super();
@@ -128,6 +136,10 @@ public class ManageOrder extends HttpServlet{
 			
 			Order orderFailed = null;
 			orderFailed = orderService.createOrder(monthlyfee, purchasedate, startdate, fails, valid, user, pack, validityfee, products);
+			
+			userService.insolventManager(user);
+			
+			alertService.alertManager(user, new Timestamp(System.currentTimeMillis()));
 		}
 		
 		String path = getServletContext().getContextPath() + "/GoToHome";

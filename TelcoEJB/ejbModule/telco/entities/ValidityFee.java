@@ -1,6 +1,7 @@
 package telco.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -34,10 +35,10 @@ public class ValidityFee implements Serializable{
 	
 	//Relationship
 	@OneToMany (mappedBy = "validityfee")
-	private List<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 	
 	@ManyToMany (mappedBy = "validityfees")
-	private List<Package> packages;
+	private List<Package> packages = new ArrayList<Package>();
 
 	//Getters and Setters
 	public int getId() {

@@ -1,6 +1,7 @@
 package telco.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class Service implements Serializable{
 	
 	//Relationship
 	@ManyToMany (mappedBy = "services")
-	private List<Package> packages;
+	private List<Package> packages = new ArrayList<Package>();
 	
 	//Getters and Setters
 	public int getId() {

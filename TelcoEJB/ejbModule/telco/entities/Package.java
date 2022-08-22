@@ -1,6 +1,7 @@
 package telco.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class Package implements Serializable {
 	
 	//Relationship
 	@OneToMany (mappedBy = "pack")
-	private List<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 	
 	@ManyToOne
 	@JoinColumn (name = "employeeid") 
@@ -46,17 +47,17 @@ public class Package implements Serializable {
 	@ManyToMany
 	@JoinTable (name = "package_includes_service", joinColumns = @JoinColumn(name = "packageid"), 
 	inverseJoinColumns = @JoinColumn (name = "serviceid"))
-	private List<Service> services;
+	private List<Service> services = new ArrayList<Service>();
 	
 	@ManyToMany
 	@JoinTable (name = "package_contains_product", joinColumns = @JoinColumn (name = "packageid"), 
 	inverseJoinColumns = @JoinColumn (name = "productid"))
-	private List<Product> products;
+	private List<Product> products = new ArrayList<Product>();
 	
 	@ManyToMany
 	@JoinTable (name = "package_offers_validityfee", joinColumns = @JoinColumn (name = "packageid"),
 	inverseJoinColumns = @JoinColumn (name = "validityfeeid"))
-	private List<ValidityFee> validityfees; 
+	private List<ValidityFee> validityfees = new ArrayList<ValidityFee>(); 
 	
 	//Getters and Setters
 	public int getId() {

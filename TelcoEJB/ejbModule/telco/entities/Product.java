@@ -1,6 +1,7 @@
 package telco.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -40,10 +41,10 @@ public class Product implements Serializable {
 	private Employee employee;
 	
 	@ManyToMany (mappedBy = "products")
-	private List<Package> packages;
+	private List<Package> packages = new ArrayList<Package>();
 	
 	@ManyToMany (mappedBy = "products")
-	private List<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 	
 	//Getters and Setters
 	public int getId() {

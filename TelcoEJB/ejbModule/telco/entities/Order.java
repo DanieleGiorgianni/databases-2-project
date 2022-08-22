@@ -22,8 +22,6 @@ import javax.persistence.Table;
 @Table (name="order", schema ="telcodb")
 
 @NamedQuery (name = "Order.findAllOrders", query = "SELECT o FROM Order o")
-@NamedQuery (name = "Order.findOrderById", query = "SELECT o FROM Order o WHERE o.id = ?1")
-
 @NamedQuery (name = "Order.findRejectedOrders", query = "SELECT o FROM Order o WHERE o.valid = FALSE")
 @NamedQuery (name = "Order.findRejectedOrdersByUser", query = "SELECT o FROM Order o WHERE o.valid = FALSE AND o.user = ?1")
 

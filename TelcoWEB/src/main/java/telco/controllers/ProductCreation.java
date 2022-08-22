@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import telco.entities.Employee;
 import telco.services.ProductService;
 
 @WebServlet ("/ProductCreation")
@@ -34,19 +35,21 @@ public class ProductCreation extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
+		// Check if parameters are present.
 		if (name == null || monthlyfee <= 0) {
 			string = "Incorrect name or monthlyfee";
 			ctx.setVariable("productMsg", string);
 		}
 		else {
-			string = productService.createProduct(name, monthlyfee);
+			Employee employee = (Employee) request.getSession().getAttribute("employee");
+			
+			string = productService.createProduct(name, monthlyfee, employee.getId());
 			if (string.equals("OK")){
 				ctx.setVariable("productMsg", "Product created successfully !");
 				
 				path = getServletContext().getContextPath() + "/GoToEmployeeHome";
 				response.sendRedirect(path);
-				//path = "/WEB-INF/employee-home.html";
-				//templateEngine.process(path, ctx, response.getWriter());
+				
 				return;
 			}
 		}

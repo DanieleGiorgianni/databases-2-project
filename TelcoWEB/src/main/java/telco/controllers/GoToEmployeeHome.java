@@ -64,19 +64,19 @@ public class GoToEmployeeHome extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		// Packages setup
+		// Packages setup.
 		List<Package> packages = packageService.findAllPackages();	
 		ctx.setVariable("packages", packages);
 		
-		//Services setup
+		// Services setup.
 		List<Service> services = serviceService.findAllServices();
 		ctx.setVariable("services", services);
 		
-		//Products set up
+		// Products set up.
 		List <Product> products = productService.findAllProducts();
 		ctx.setVariable("products", products);
 		
-		//ValidityFees sets up
+		// ValidityFees sets up.
 		List<ValidityFee> validityfees = validityFeeService.findAllValidityFees();
 		ctx.setVariable("validityfees", validityfees);
 		

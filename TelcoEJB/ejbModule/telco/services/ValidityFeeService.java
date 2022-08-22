@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import telco.entities.ValidityFee;
@@ -17,7 +18,11 @@ public class ValidityFeeService {
 	public ValidityFeeService () {};
 	
 	public List<ValidityFee> findAllValidityFees() {
-		return em.createNamedQuery("ValidityFee.findAllValidityFees", ValidityFee.class).getResultList();
+		try {
+			return em.createNamedQuery("ValidityFee.findAllValidityFees", ValidityFee.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public ValidityFee findValidityFeeById (int validityFeeId) {

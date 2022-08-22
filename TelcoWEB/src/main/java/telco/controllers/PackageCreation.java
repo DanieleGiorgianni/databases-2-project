@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-
+import telco.entities.Employee;
 import telco.services.PackageService;
 
 
@@ -43,15 +43,16 @@ public class PackageCreation extends HttpServlet {
 			string = "Incorret name or validityFee or service";
 			ctx.setVariable("packageMsg", string);
 			
-		} else {
-			string = packageService.createPackage(name, validityFees, services, products);
+		}
+		else {
+			Employee employee = (Employee) request.getSession().getAttribute("employee");
+			
+			string = packageService.createPackage(name, employee.getId(), services, products, validityFees);
 			if (string.equals("OK")) {
 				ctx.setVariable("packageMsg", "Package created successfully !");
 				
 				path = getServletContext().getContextPath() + "/GoToEmployeeHome";
 				response.sendRedirect(path);
-				//path = "/WEB-INF/employee-home.html";
-				//templateEngine.process(path, ctx, response.getWriter());
 				
 				return;
 			}

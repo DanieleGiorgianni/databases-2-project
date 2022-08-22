@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import telco.entities.Order;
@@ -20,19 +21,31 @@ public class SasService {
 	public SasService () {}
 
 	public List<Sas> findAllSas() {
-		return em.createNamedQuery("SasService.findAllAlerts", Sas.class).getResultList();	
+		try {
+			return em.createNamedQuery("SasService.findAllSas", Sas.class).getResultList();	
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public Sas findSasById(int sasId) {
 		return em.find(Sas.class, sasId);
 	}
 	
-	public List<Sas> findSasByUser(String username) {  //wouldn't it be better to use userId instead of username?
-		return em.createNamedQuery("Sas.findSasByUser", Sas.class).setParameter(1, username).getResultList();
+	public List<Sas> findSasByUser(User user) {
+		try {
+			return em.createNamedQuery("Sas.findSasByUser", Sas.class).setParameter(1, user).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
-	public List<Sas> findSasByOrder(int orderid) {
-		return em.createNamedQuery("Sas.findSasByOrder", Sas.class).setParameter(1, orderid).getResultList();
+	public List<Sas> findSasByOrder(Order order) {
+		try {
+			return em.createNamedQuery("Sas.findSasByOrder", Sas.class).setParameter(1, order).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public void createSas(Date deactivationDate, Order order, User user) {
@@ -45,5 +58,4 @@ public class SasService {
 		em.flush();
 		System.out.println ("createSas in SasService DONE");
 	}
-
 }

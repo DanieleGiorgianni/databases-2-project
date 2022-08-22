@@ -30,7 +30,11 @@ public class AlertService {
 	}
 
 	public List<Alert> findAllAlerts() {
-		return em.createNamedQuery("Alert.findAllAlerts", Alert.class).getResultList();
+		try {
+			return em.createNamedQuery("Alert.findAllAlerts", Alert.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public Alert findAlertByUser(User user) {

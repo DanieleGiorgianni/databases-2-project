@@ -51,7 +51,9 @@ public class GoToFixBuy extends HttpServlet {
 		Order failedOrder = null;
 		
 		failedOrderId = Integer.parseInt(request.getParameter("failedOrderId"));
+		//System.out.println("> failedOrderId = " + failedOrderId);
 		failedOrder = orderService.findOrderById(failedOrderId);
+		//System.out.println("> failedOrder = " + failedOrder);
 		
 		if (failedOrder != null) {
 			ctx.setVariable("failedOrder", failedOrder);

@@ -1,6 +1,7 @@
 package telco.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -18,6 +19,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import telco.entities.Order;
 import telco.entities.Package;
+import telco.entities.User;
 import telco.services.OrderService;
 import telco.services.PackageService;
 
@@ -54,16 +56,18 @@ public class GoToHome extends HttpServlet {
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		// Packages setup.
-		List<Package> packages = null;
+		List<Package> packages = new ArrayList<Package>();
 		packages = packageService.findAllPackages();	
 		ctx.setVariable("packages", packages);
 		
-		// Failed order(s).
-		List<Order> failedOrders = null;
-		failedOrders = orderService.findRejectedOrders();
-		ctx.setVariable("failedOrders", failedOrders);
+		User user = (User) request.getSession().getAttribute("user");
 		
-		// TODO alert setup
+		if (user != null) {
+			// Failed order(s).
+			List<Order> failedOrders = new ArrayList<Order>();
+			failedOrders = orderService.findRejectedOrdersByUser(user);
+			ctx.setVariable("failedOrders", failedOrders);
+		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}

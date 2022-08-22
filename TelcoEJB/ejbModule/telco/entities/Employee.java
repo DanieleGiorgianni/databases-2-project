@@ -19,7 +19,6 @@ import javax.persistence.Table;
 @Table (name = "employee", schema = "telcodb")
 
 @NamedQuery (name = "Employee.checkLoginCredentials", query = "SELECT e FROM Employee e  WHERE e.employeename = ?1 and e.password = ?2")
-@NamedQuery (name = "Employee.findEmployeeById", query = "SELECT e FROM Employee e WHERE e.id = ?1")
 @NamedQuery (name = "Employee.findEmployeeByName", query = "SELECT e FROM Employee e WHERE e.employeename = ?1")
 
 public class Employee implements Serializable {

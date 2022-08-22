@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import telco.entities.Service;
@@ -19,7 +20,11 @@ public class ServiceService {
 	public ServiceService() {}
 	
 	public List<Service> findAllServices() {
-		return em.createNamedQuery("Service.findAllServices", Service.class).getResultList();
+		try {
+			return em.createNamedQuery("Service.findAllServices", Service.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public Service findServiceById(int serviceId) {
@@ -27,6 +32,10 @@ public class ServiceService {
 	}
 	
 	public Service findServiceByType(String type) {
-		return em.createNamedQuery("Service.findServiceByType", Service.class).setParameter(1, type).getSingleResult();
+		try {
+			return em.createNamedQuery("Service.findServiceByType", Service.class).setParameter(1, type).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

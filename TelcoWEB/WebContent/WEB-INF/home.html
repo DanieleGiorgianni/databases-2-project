@@ -58,8 +58,7 @@
 					<tr th:each="fo : ${failedOrders}">
 						<td th:text="${fo.getPack().getName()}"></td>
 						<td>
-							<input type="hidden" name="failedOrderId" th:value="${fo.id}">
-							<input type="submit" value="Buy">
+							<button name="failedOrderId" type="submit" th:value="${fo.getId()}">Buy</button>
 						</td>
 					</tr>
 				</table>

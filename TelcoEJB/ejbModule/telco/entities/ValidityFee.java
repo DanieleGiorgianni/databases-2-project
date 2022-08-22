@@ -17,7 +17,6 @@ import javax.persistence.Table;
 @Table (name = "validityfee", schema = "telcodb")
 
 @NamedQuery (name = "ValidityFee.findAllValidityFees", query = "SELECT v FROM ValidityFee v ")
-@NamedQuery (name = "ValidityFee.findValidityFeeById", query = "SELECT v FROM ValidityFee v WHERE v.id = ?1")
 
 public class ValidityFee implements Serializable{
 	

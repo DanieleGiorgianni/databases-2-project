@@ -1,6 +1,7 @@
 package telco.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -23,8 +24,8 @@ import telco.services.AlertService;
 import telco.services.OrderService;
 import telco.services.UserService;
 
-@WebServlet ("/GoToSalesReportPage")
-public class GoToSalesReportPage extends HttpServlet{
+@WebServlet ("/GoToSalesReport")
+public class GoToSalesReport extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
@@ -37,7 +38,7 @@ public class GoToSalesReportPage extends HttpServlet{
 	@EJB (name = "telco.services/AlertService")
 	private AlertService alertService;
 	
-	public GoToSalesReportPage() {
+	public GoToSalesReport() {
 		super();
 	}	
 
@@ -50,19 +51,25 @@ public class GoToSalesReportPage extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doGet in GoToSalesReport");
 		
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		List<User> insolventUsers = userService.findAllInsolvents();
+		// Obtaining all insolvent users.
+		List<User> insolventUsers = new ArrayList<User>();
+		insolventUsers = userService.findAllInsolvents();
 		ctx.setVariable("insolventUsers", insolventUsers);
 		
-		List<Order> rejectedOrders = orderService.findRejectedOrders();
+		// Obtaining all rejected orders.
+		List<Order> rejectedOrders = new ArrayList<Order>();
+		rejectedOrders = orderService.findRejectedOrders();
 		ctx.setVariable("rejectedOrders", rejectedOrders);
 		
-		List<Alert> totalAlerts = alertService.findAllAlerts();
+		// Obtaining all alerts.
+		List<Alert> totalAlerts = new ArrayList<Alert>();
+		totalAlerts =  alertService.findAllAlerts();
 		ctx.setVariable("totalAlerts", totalAlerts);
 		
 		//TODO: add reports related to triggers

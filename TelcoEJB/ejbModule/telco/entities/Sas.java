@@ -17,8 +17,6 @@ import javax.persistence.Table;
 @Table (name = "sas", schema = "telcodb")
 
 @NamedQuery (name = "Sas.findAllSas", query = "SELECT s FROM Sas s ")
-@NamedQuery (name = "Sas.findSasById", query = "SELECT s FROM Sas s WHERE s.id = ?1")
-
 @NamedQuery (name = "Sas.findSasByUser", query = "SELECT s FROM Sas s WHERE s.user = ?1")
 @NamedQuery (name = "Sas.findSasByOrder", query = "SELECT s FROM Sas s WHERE s.order = ?1")
 

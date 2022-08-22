@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import telco.entities.Order;
@@ -32,15 +33,27 @@ public class OrderService {
 	}
 
 	public List<Order> findAllOrders() {
-		return em.createNamedQuery("Order.findAllOrders", Order.class).getResultList();
+		try {
+			return em.createNamedQuery("Order.findAllOrders", Order.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	public List<Order> findRejectedOrders() {
-		return em.createNamedQuery("Order.findRejectedOrders", Order.class).getResultList();
+		try {
+			return em.createNamedQuery("Order.findRejectedOrders", Order.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public List<Order> findRejectedOrdersByUser(User user) {
-		return em.createNamedQuery("Order.findRejectedOrdersByUser", Order.class).setParameter(1, user).getResultList();
+		try {
+			return em.createNamedQuery("Order.findRejectedOrdersByUser", Order.class).setParameter(1, user).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	public Order createOrder(int monthlyfee, Timestamp purchasedate, Date startdate, int fails, boolean valid,

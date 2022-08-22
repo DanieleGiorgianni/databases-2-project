@@ -16,9 +16,7 @@ import javax.persistence.Table;
 @Table (name = "service", schema = "telcodb")
 
 @NamedQuery (name = "Service.findAllServices", query = "SELECT s FROM Service s")
-
-@NamedQuery (name = "Service.findServiceById", query = "SELECT s FROM Service s WHERE s.id = ?1")
-@NamedQuery (name = "Service.findOrderByType", query = "SELECT s FROM Service s WHERE s.type = ?1")
+@NamedQuery (name = "Service.findServiceByType", query = "SELECT s FROM Service s WHERE s.type = ?1")
 
 public class Service implements Serializable{
 	

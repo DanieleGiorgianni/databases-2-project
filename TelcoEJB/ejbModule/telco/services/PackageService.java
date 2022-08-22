@@ -6,8 +6,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import telco.entities.Employee;
 import telco.entities.Package;
 import telco.entities.Product;
 import telco.entities.Service;
@@ -32,10 +34,17 @@ public class PackageService {
 	@EJB(name = "telco.services/ProductService")
 	private ProductService productService;
 	
+	@EJB(name = "telco.services/EmployeeService")
+	private EmployeeService employeeService;
+	
 	public PackageService() {}
 	
 	public List<Package> findAllPackages() {
-		return em.createNamedQuery("Package.findAllPackages", Package.class).getResultList();
+		try {
+			return em.createNamedQuery("Package.findAllPackages", Package.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	public Package findPackageById(int packageId) {
@@ -46,31 +55,39 @@ public class PackageService {
 		return em.createNamedQuery("Package.findPackageByName", Package.class).setParameter(1, name).getSingleResult();
 	}
 	
-	public List<Product> findProductsByPackageId (int packageId) {
+	public List<Product> findProductsByPackageId(int packageId) {
 		return em.find(Package.class, packageId).getProducts();
 	}
 	
-	public List<ValidityFee> findValidityFeesByPackageId (int packageId) {
+	public List<ValidityFee> findValidityFeesByPackageId(int packageId) {
 		return em.find(Package.class, packageId).getValidityFees();
 	}
 	
-	public String createPackage(String name, String[] validity, String[] services, String[] products) {
+	public String createPackage(String name, int employeeId, String[] services, String[] products, String[] validity) {
 		// Check if already exists a package with the same name.
-		List<Package> packs = findAllPackages();
+		List<Package> packs = new ArrayList<Package>();
+		packs = findAllPackages();
 		for (Package p : packs) {
 			if (p.getName().equals(name))
 				return "A package with the same name already exists";
 		}
 		
+		// Employee who is creating the package.
+		Employee employee = employeeService.findEmployeeById(employeeId);
+		
+		// Checks on the selection of services and validity for the package to be created.
 		if (services.length == 0)
 			return "Select at least one service in order to create a package ";
 		if (validity.length == 0)
 			return "Select at least one validity for the new package ";
 		
+		// Creation of the new package.
 		Package pack = new Package();
 		pack.setName(name);
+		pack.setEmployee(employee);
 		
-		List<Service> addServices = new ArrayList<Service> ();
+		// Addition of services.
+		List<Service> addServices = new ArrayList<Service>();
 		for (String s : services) {
 			Integer sId = Integer.parseInt(s);
 			Service addService = serviceService.findServiceById(sId);
@@ -78,6 +95,7 @@ public class PackageService {
 		}
 		pack.setServices(addServices);
 		
+		// Addition of validity and related costs.
 		List<ValidityFee> addValidityFees = new ArrayList<ValidityFee>();
 		for (String v : validity) {
 			Integer vId = Integer.parseInt(v);
@@ -86,14 +104,15 @@ public class PackageService {
 		}
 		pack.setValidityFees(addValidityFees);
 		
+		// Addition of validity and related costs.
 		if (products != null) {
-			List<Product> addProducts = new ArrayList<Product> ();
+			List<Product> addProducts = new ArrayList<Product>();
 			for (String p : products) {
 				Integer pId = Integer.parseInt(p);
 				Product addProduct = productService.findProductById(pId);
 				addProducts.add(addProduct);
 			}
-		pack.setProducts(addProducts);
+			pack.setProducts(addProducts);
 		}
 		
 		em.persist(pack);

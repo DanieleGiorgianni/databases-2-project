@@ -66,7 +66,7 @@ public class EmployeeLogin extends HttpServlet {
 		}
 		
 		try {
-			employee = employeeService.login (username,password);
+			employee = employeeService.login(username,password);
 			
 			if (employee != null) {
 				request.getSession().setAttribute("employee", employee);

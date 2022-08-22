@@ -12,8 +12,6 @@ import javax.persistence.*;
 @NamedQuery (name = "User.checkRegistrationEmail", query = "SELECT u FROM User u WHERE u.email = ?1")
 @NamedQuery (name = "User.checkLoginCredentials", query = "SELECT u FROM User u WHERE u.username = ?1 and u.password = ?2")
 @NamedQuery (name = "User.findAllInsolvents", query = "SELECT u FROM User u WHERE u.insolvent = TRUE")
-
-@NamedQuery (name = "User.findUserById", query = "SELECT u FROM User u WHERE u.id = ?1")
 @NamedQuery (name = "User.findUserByName", query = "SELECT u FROM User u WHERE u.username = ?1")
 
 public class User implements Serializable {

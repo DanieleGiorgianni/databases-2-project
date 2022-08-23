@@ -43,11 +43,6 @@ public class Employee implements Serializable {
 	@OneToMany (mappedBy = "employee")
 	private List<Product> products = new ArrayList<Product>();
 	
-//	@ManyToMany
-//	@JoinTable (name = "employee_controls_alert", joinColumns = @JoinColumn (name = "employeeid"),
-//	inverseJoinColumns = @JoinColumn (name = "alertid"))
-//	private List<Alert> alerts;
-	
 	//Getters and Setters
 	public int getId() {
 		return id;

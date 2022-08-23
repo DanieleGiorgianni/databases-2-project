@@ -39,9 +39,6 @@ public class Alert implements Serializable {
 	@JoinColumn (name = "userid")
 	private User user;
 	
-//	@ManyToMany (mappedBy = "alerts")
-//	private List<Employee> employees; Useless: an employee can obtain the alert list by AlertService
-	
 	//Getters and Setters
 	public int getId() {
 		return id;
@@ -67,10 +64,4 @@ public class Alert implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-//	public List<Employee> getEmployees() {
-//		return employees;
-//	}
-//	public void setEmployees(List<Employee> employees) {
-//		this.employees = employees;
-//	}
 }

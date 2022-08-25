@@ -28,12 +28,12 @@ public class Sas implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private Date deactivationdate;
 	
 	public Sas() {}
 	
-	//Relationships
+	// Relationships.
 	@OneToOne 
 	@JoinColumn (name = "orderid")
 	private Order order;
@@ -42,7 +42,7 @@ public class Sas implements Serializable {
 	@JoinColumn (name = "userid")
 	private User user;
 	
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}

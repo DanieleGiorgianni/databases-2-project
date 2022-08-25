@@ -26,20 +26,20 @@ public class ValidityFee implements Serializable{
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private int months;
 	private int monthlyfee;
 	
 	public ValidityFee () {}
 	
-	//Relationship
+	// Relationships.
 	@OneToMany (mappedBy = "validityfee")
 	private List<Order> orders = new ArrayList<Order>();
 	
 	@ManyToMany (mappedBy = "validityfees")
 	private List<Package> packages = new ArrayList<Package>();
 
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}

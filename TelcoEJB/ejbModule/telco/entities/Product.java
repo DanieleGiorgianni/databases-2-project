@@ -28,13 +28,13 @@ public class Product implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private String name;
 	private int monthlyfee;
 	
 	public Product() {}
 	
-	//Relationship
+	// Relationships.
 	@ManyToOne 
 	@JoinColumn (name = "employeeid") //attribute that must be add in the package table
 	private Employee employee;
@@ -45,40 +45,51 @@ public class Product implements Serializable {
 	@ManyToMany (mappedBy = "products")
 	private List<Order> orders = new ArrayList<Order>();
 	
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public int getMonthlyfee() {
 		return monthlyfee;
 	}
+	
 	public void setMonthlyfee(int monthlyfee) {
 		this.monthlyfee = monthlyfee;
 	}
+	
 	public Employee getEmployee() {
 		return employee;
 	}
+	
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
 	public List<Package> getPackages() {
 		return packages;
 	}
+	
 	public void setPackages(List<Package> packages) {
 		this.packages = packages;
 	}
+	
 	public List<Order> getOrders() {
 		return orders;
 	}
+	
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}

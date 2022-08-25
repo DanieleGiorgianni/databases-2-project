@@ -47,9 +47,11 @@ public class GoToIndex extends HttpServlet {
 		String startdate = request.getParameter("startdate");
 		
 		// TODO (Remove) Print test
-		System.out.println("> packageId: " + packageId);				
-		for (String p : productId)
-			System.out.println("> productId: " + p);				
+		System.out.println("> packageId: " + packageId);
+		if (productId != null) {
+			for (String p : productId)
+				System.out.println("> productId: " + p);
+		}
 		System.out.println("> validityfeeId: " + validityfeeId);
 		System.out.println("> startdate: " + startdate);
 		

@@ -23,6 +23,12 @@ import telco.entities.User;
 import telco.services.AlertService;
 import telco.services.OrderService;
 import telco.services.UserService;
+import telco.triggers.AverageProductsPerPackage;
+import telco.triggers.ProductBestSeller;
+import telco.triggers.PurchasePerPackage;
+import telco.triggers.PurchasePerPackageAndValidityPeriod;
+import telco.triggers.TotalSalesPerPackage;
+import telco.triggers.TriggersService;
 
 @WebServlet ("/GoToSalesReport")
 public class GoToSalesReport extends HttpServlet{
@@ -37,6 +43,9 @@ public class GoToSalesReport extends HttpServlet{
 	
 	@EJB (name = "telco.services/AlertService")
 	private AlertService alertService;
+	
+	@EJB (name = "telco.services/TriggersService")
+	private TriggersService triggersService;
 	
 	public GoToSalesReport() {
 		super();
@@ -72,10 +81,34 @@ public class GoToSalesReport extends HttpServlet{
 		totalAlerts =  alertService.findAllAlerts();
 		ctx.setVariable("totalAlerts", totalAlerts);
 		
-		//TODO: add reports related to triggers
+		// Obtaining all purchases per package.
+		List<PurchasePerPackage> purchasePerPackages = new ArrayList<PurchasePerPackage>();
+		purchasePerPackages = triggersService.findAllPurchasePerPackage();
+		ctx.setVariable("purchasePerPackages", purchasePerPackages);
+		//System.out.println("> ppp: " + purchasePerPackages);
+		
+		// Obtaining all purchases per package with their validity period.
+		List<PurchasePerPackageAndValidityPeriod> purchasePerPackageAndValidityPeriod = new ArrayList<PurchasePerPackageAndValidityPeriod>();
+		purchasePerPackageAndValidityPeriod = triggersService.findAllPurchasePerPackageAndValidityPeriod();
+		ctx.setVariable("purchasePerPackageAndValidityPeriod", purchasePerPackageAndValidityPeriod);
+		//System.out.println("> pppavp: " + purchasePerPackageAndValidityPeriod);
+		
+		// Obtaining all sales per package with and without optional products.
+		List<TotalSalesPerPackage> totalSalesPerPackage = new ArrayList<TotalSalesPerPackage>();
+		totalSalesPerPackage = triggersService.findAllTotalSalesPerPackage();
+		ctx.setVariable("totalSalesPerPackage", totalSalesPerPackage);
+		
+		// Obtaining the average of orders sold with optional products over the total for that package.
+		List<AverageProductsPerPackage> averageProductsPerPackage = new ArrayList<AverageProductsPerPackage>();
+		averageProductsPerPackage = triggersService.findAllAverageProductsPerPackage();
+		ctx.setVariable("averageProductsPerPackage", averageProductsPerPackage);
+		
+		// Obtaining the most sold optional products.
+		List<ProductBestSeller> productBestSeller = new ArrayList<ProductBestSeller>();
+		productBestSeller = triggersService.findAllProductBestSeller();
+		ctx.setVariable("productBestSeller", productBestSeller);
 		
 		String path = "/WEB-INF/report.html";
 		templateEngine.process(path, ctx, response.getWriter());
 	}
-
 }

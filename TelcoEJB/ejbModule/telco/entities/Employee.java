@@ -29,42 +29,49 @@ public class Employee implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private String employeename;
 	private String password;
 	private String email;
 	
 	public Employee() {}
 	
-	//Relationship
+	// Relationships.
 	@OneToMany (mappedBy = "employee")
 	private List<Package> packages = new ArrayList<Package>();
 	
 	@OneToMany (mappedBy = "employee")
 	private List<Product> products = new ArrayList<Product>();
 	
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getEmployeename() {
 		return employeename;
 	}
+	
 	public void setEmployeename(String employeename) {
 		this.employeename = employeename;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}

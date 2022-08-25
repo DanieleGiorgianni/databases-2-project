@@ -28,39 +28,46 @@ public class Alert implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private int amount;
 	private Timestamp lastdatetime;
 	
 	public Alert() {}
 	
-	//Relationship
+	// Relationships.
 	@OneToOne
 	@JoinColumn (name = "userid")
 	private User user;
 	
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public int getAmount() {
 		return amount;
 	}
+	
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
 	public Timestamp getLastdatetime() {
 		return lastdatetime;
 	}
+	
 	public void setLastdatetime(Timestamp lastdatetime) {
 		this.lastdatetime = lastdatetime;
 	}
+	
 	public User getUser() {
 		return user;
 	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}

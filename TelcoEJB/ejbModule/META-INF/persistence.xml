@@ -11,5 +11,11 @@
 		<class>telco.entities.Service</class>
 		<class>telco.entities.User</class>
 		<class>telco.entities.ValidityFee</class>
+		<class>telco.triggers.AverageProductsPerPackage</class>
+		<class>telco.triggers.PackageValidityfee</class>
+		<class>telco.triggers.ProductBestSeller</class>
+		<class>telco.triggers.PurchasePerPackage</class>
+		<class>telco.triggers.PurchasePerPackageAndValidityPeriod</class>
+		<class>telco.triggers.TotalSalesPerPackage</class>
 	</persistence-unit>
 </persistence>

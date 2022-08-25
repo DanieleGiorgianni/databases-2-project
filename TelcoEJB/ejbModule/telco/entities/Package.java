@@ -30,12 +30,12 @@ public class Package implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private String name;
 	
 	public Package() {}
 	
-	//Relationship
+	// Relationships.
 	@OneToMany (mappedBy = "pack")
 	private List<Order> orders = new ArrayList<Order>();
 	
@@ -58,46 +58,59 @@ public class Package implements Serializable {
 	inverseJoinColumns = @JoinColumn (name = "validityfeeid"))
 	private List<ValidityFee> validityfees = new ArrayList<ValidityFee>(); 
 	
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public List<Order> getOrders() {
 		return orders;
 	}
+	
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+	
 	public Employee getEmployee() {
 		return employee;
 	}
+	
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
 	public List<Service> getServices() {
 		return services;
 	}
+	
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
+	
 	public List<Product> getProducts() {
 		return products;
 	}
+	
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
+	
 	public List<ValidityFee> getValidityFees() {
 		return validityfees;
 	}
+	
 	public void setValidityFees(List<ValidityFee> validityfees) {
 		this.validityfees = validityfees;
 	}

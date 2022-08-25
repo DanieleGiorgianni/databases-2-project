@@ -33,7 +33,7 @@ public class Order implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes. 
 	private int monthlyfee;
 	private Timestamp purchasedate;
 	private Date startdate;
@@ -42,7 +42,7 @@ public class Order implements Serializable {
 	
 	public Order() {}
 	
-	//Relationship
+	// Relationships.
 	@ManyToOne
 	@JoinColumn (name = "userid")
 	private User user;
@@ -63,7 +63,7 @@ public class Order implements Serializable {
 	@OneToOne (mappedBy = "order")
 	private Sas sas;
 
-	//Getters & Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}

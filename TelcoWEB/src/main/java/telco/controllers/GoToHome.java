@@ -57,8 +57,11 @@ public class GoToHome extends HttpServlet {
 		
 		// Packages setup.
 		List<Package> packages = new ArrayList<Package>();
-		packages = packageService.findAllPackages();	
-		ctx.setVariable("packages", packages);
+		packages = packageService.findAllPackages();
+		if (packages.isEmpty())
+			ctx.setVariable("packages", null);
+		else
+			ctx.setVariable("packages", packages);
 		
 		User user = (User) request.getSession().getAttribute("user");
 		

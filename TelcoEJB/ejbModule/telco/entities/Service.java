@@ -26,7 +26,7 @@ public class Service implements Serializable{
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//Attributes
+	// Attributes.
 	private String type;
 	private int minsnum;
 	private int minsfee;
@@ -37,62 +37,79 @@ public class Service implements Serializable{
 	
 	public Service() {}
 	
-	//Relationship
+	// Relationship.
 	@ManyToMany (mappedBy = "services")
 	private List<Package> packages = new ArrayList<Package>();
 	
-	//Getters and Setters
+	// Getters and Setters.
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getType() {
 		return type;
 	}
+	
 	public void setType(String type) {
 		this.type = type;
 	}
+	
 	public int getMinsnum() {
 		return minsnum;
 	}
+	
 	public void setMinsnum(int minsnum) {
 		this.minsnum = minsnum;
 	}
+	
 	public int getMinsfee() {
 		return minsfee;
 	}
+	
 	public void setMinsfee(int minsfee) {
 		this.minsfee = minsfee;
 	}
+	
 	public int getSmsnum() {
 		return smsnum;
 	}
+	
 	public void setSmsnum(int smsnum) {
 		this.smsnum = smsnum;
 	}
+	
 	public int getSmsfee() {
 		return smsfee;
 	}
+	
 	public void setSmsfee(int smsfee) {
 		this.smsfee = smsfee;
 	}
+	
 	public int getGiganum() {
 		return giganum;
 	}
+	
 	public void setGiganum(int giganum) {
 		this.giganum = giganum;
 	}
+	
 	public int getGigafee() {
 		return gigafee;
 	}
+	
 	public void setGigafee(int gigafee) {
 		this.gigafee = gigafee;
 	}
+	
 	public List<Package> getPackages() {
 		return packages;
 	}
+	
 	public void setPackages(List<Package> packages) {
 		this.packages = packages;
 	}

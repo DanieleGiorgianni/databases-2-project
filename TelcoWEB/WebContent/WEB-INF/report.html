@@ -20,6 +20,51 @@
 				</div>
 			</div>
 		<h2>Report for employees</h2>
+		
+		<div class="employee-div">
+			<h3>Purchases per package</h3>
+			<table style="text-align: center; margin: auto auto;" th:if="${!purchasePerPackages.empty}">
+				<tr th:each="p : ${purchasePerPackages}">
+					<td th:text="'PackageId: ' + ${p.getPackageid()}"></td>
+					<td th:text="'Purchases: ' + ${p.getPackagepurchases()}"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="employee-div">
+			<h3>Purchases per package and validity period</h3>
+			<table style="text-align: center; margin: auto auto;" th:if="${!purchasePerPackageAndValidityPeriod.empty}">
+				<tr th:each="pv : ${purchasePerPackageAndValidityPeriod}">
+					<td th:text="'PackageId: ' + ${pv.getPvid().getPackageid()}"></td>
+					<td th:text="'Purchases: ' + ${pv.getPackagepurchases()}"></td>
+					<td th:text="'ValidityfeeId: ' + ${pv.getPvid().getValidityfeeid()}"></td>
+					<td th:text="'ValidityfeeMonths: ' + ${pv.getValidityfeemonths()}"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="employee-div">
+			<h3>Total sales per package</h3>
+			<table style="text-align: center; margin: auto auto;" th:if="${!totalSalesPerPackage.empty}">
+				<tr th:each="t : ${totalSalesPerPackage}">
+					<td th:text="'PackageId: ' + ${t.getPackageid()}"></td>
+					<td th:text="'Purchases with products: ' + ${t.getPackageWithProducts()}"></td>
+					<td th:text="'Purchases without products: ' + ${t.getPackageWithoutProducts()}"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="employee-div">
+			<h3>Average products per package</h3>
+			<table style="text-align: center; margin: auto auto;" th:if=${!averageProductsPerPackage.empty}>
+				<tr th:each="ap : ${averageProductsPerPackage}">
+					<td th:text="'PackageId: ' + ${ap.getPackadeid()}"></td>
+					<td th:text="'Order with products: ' + ${ap.getOrderwithproduct()}"></td>
+					<td th:text="'Total orders: ' + ${ap.getTotalorder()}"></td>
+					<td th:text="'Average: ' + ${ap.getAverageproduct()}"></td>
+				</tr>
+			</table>
+		</div>
 			
 		<div class="employee-div">
 			<h3>List of Insolvent Users</h3>
@@ -56,7 +101,17 @@
 				</tr>
 			</table>
 		</div>
-			
+		
+		<div class="employee-div">
+			<h3>Best seller optional product</h3>
+			<table style="text-align: center; margin: auto auto;" th:if="${!productBestSeller.empty}">
+				<tr th:each="pb : ${productBestSeller}">
+					<td th:text="'ProductId: ' + ${pb.getProductid()}"></td>
+					<td th:text="'Sold number: ' + ${pb.getProductsales()}"></td>
+				</tr>
+			</table>
+		</div>
+		
 	</div>
 </body>
 </html>

@@ -85,13 +85,11 @@ public class GoToSalesReport extends HttpServlet{
 		List<PurchasePerPackage> purchasePerPackages = new ArrayList<PurchasePerPackage>();
 		purchasePerPackages = triggersService.findAllPurchasePerPackage();
 		ctx.setVariable("purchasePerPackages", purchasePerPackages);
-		//System.out.println("> ppp: " + purchasePerPackages);
 		
 		// Obtaining all purchases per package with their validity period.
 		List<PurchasePerPackageAndValidityPeriod> purchasePerPackageAndValidityPeriod = new ArrayList<PurchasePerPackageAndValidityPeriod>();
 		purchasePerPackageAndValidityPeriod = triggersService.findAllPurchasePerPackageAndValidityPeriod();
 		ctx.setVariable("purchasePerPackageAndValidityPeriod", purchasePerPackageAndValidityPeriod);
-		//System.out.println("> pppavp: " + purchasePerPackageAndValidityPeriod);
 		
 		// Obtaining all sales per package with and without optional products.
 		List<TotalSalesPerPackage> totalSalesPerPackage = new ArrayList<TotalSalesPerPackage>();
@@ -106,6 +104,18 @@ public class GoToSalesReport extends HttpServlet{
 		// Obtaining the most sold optional products.
 		List<ProductBestSeller> productBestSeller = new ArrayList<ProductBestSeller>();
 		productBestSeller = triggersService.findAllProductBestSeller();
+		if (!productBestSeller.isEmpty()) {
+			int maxProductSales = -1;
+			ProductBestSeller pBest = null;
+			for (ProductBestSeller pb : productBestSeller) {
+				if (pb.getProductsales() > maxProductSales) {
+					maxProductSales = pb.getProductsales();
+					pBest = pb;
+				}
+			}
+			productBestSeller.clear();
+			productBestSeller.add(pBest);	
+		}
 		ctx.setVariable("productBestSeller", productBestSeller);
 		
 		String path = "/WEB-INF/report.html";

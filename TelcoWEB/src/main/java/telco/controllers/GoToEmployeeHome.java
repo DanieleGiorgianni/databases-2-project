@@ -56,6 +56,9 @@ public class GoToEmployeeHome extends HttpServlet {
 	}
 
 
+	/*
+	 * Method that derives the parameters necessary for an employee to create a package and/or optional product on his/her home page.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToEmployeeHome");
 		
@@ -72,11 +75,11 @@ public class GoToEmployeeHome extends HttpServlet {
 		List<Service> services = serviceService.findAllServices();
 		ctx.setVariable("services", services);
 		
-		// Products set up.
+		// Products setup.
 		List <Product> products = productService.findAllProducts();
 		ctx.setVariable("products", products);
 		
-		// ValidityFees sets up.
+		// ValidityFees setup.
 		List<ValidityFee> validityfees = validityFeeService.findAllValidityFees();
 		ctx.setVariable("validityfees", validityfees);
 		

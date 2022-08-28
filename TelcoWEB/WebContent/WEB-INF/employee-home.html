@@ -32,7 +32,6 @@
 						<table style="margin: 5px auto 20px auto; text-align: left;">
 							<tbody>
 								<tr th:each="v : ${validityfees}">
-									<!-- <td th:text="${v.months}"></td> -->
 									<td><input name="packagevalidity" th:value="${v.id}" type="checkbox"></td>
 									<td><label th:text="${v.months} + ' months'"></label></td>
 								</tr>
@@ -43,7 +42,6 @@
 						<table style="margin: 5px auto 20px auto; text-align: left;">
 							<tbody>
 								<tr th:each="s : ${services}">
-									<!-- <td th:text="${s.type}"></td> -->
 									<td><input name="packageservice" th:value="${s.id}" type="checkbox"></td>
 									<td><label th:text="${s.type}"></label></td>
 								</tr>
@@ -54,8 +52,6 @@
 						<table style="margin: 5px auto 20px auto; text-align: left;">
 							<tbody>
 								<tr th:each="p : ${products}">
-									<!-- <td th:text="${p.name}"></td>
-									<td th:text="${p.monthlyFee}"></td> -->
 									<td><input name="packageproducts" th:value="${p.id}" type="checkbox"></td>
 									<td><label th:text="${p.name}"></label></td>
 									<td><label th:text="' at ' + ${p.monthlyFee} + ' EUR per month'"></label></td>

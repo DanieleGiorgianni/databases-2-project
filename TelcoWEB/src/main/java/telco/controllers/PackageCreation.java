@@ -25,6 +25,9 @@ public class PackageCreation extends HttpServlet {
 	@EJB (name = "telco.services/PackageService")
 	private PackageService packageService;
 	
+	/*
+	 * Method that extracts the necessary information to be passed to the appropriate ejb for package creation.
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("packagename");	
 		String[] validityFees = request.getParameterValues("packagevalidity");

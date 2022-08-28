@@ -48,6 +48,4 @@ public class PurchasePerPackageAndValidityPeriod implements Serializable {
 	public void setValidityfeemonths(int validityfeemonths) {
 		this.validityfeemonths = validityfeemonths;
 	}
-
-	
 }

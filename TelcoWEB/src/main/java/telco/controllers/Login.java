@@ -42,6 +42,13 @@ public class Login extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 	
+	/*
+	 * Method checks if the credentials entered are correct (using the relevant EJB), 
+	 * if so it either redirects to the user's home page or, 
+	 * if the attributes of a previously configured order are present without login, 
+	 * redirects to the buy page for that order; 
+	 * if not, it will reload the login page with an error message.
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = null;
 		String password = null;
@@ -76,21 +83,7 @@ public class Login extends HttpServlet{
 					response.sendRedirect(path);
 				}
 				// An unlogged user tried to purchase a package.
-				else {
-					String packageId = (String) request.getSession().getAttribute("packageId");
-					String[] productId = (String[]) request.getSession().getAttribute("productId");
-					String validityfeeId = (String) request.getSession().getAttribute("validityfeeId");
-					String startdate = (String) request.getSession().getAttribute("startdate");
-					
-					// TODO (Remove) Print test
-					System.out.println("> packageId: " + packageId);
-					if (productId != null) {
-						for (String p : productId)
-							System.out.println("> productId: " + p);
-					}
-					System.out.println("> validityfeeId: " + validityfeeId);
-					System.out.println("> startdate: " + startdate);
-					
+				else {					
 					path = getServletContext().getContextPath() + "/GoToBuy";
 					response.sendRedirect(path);
 				}

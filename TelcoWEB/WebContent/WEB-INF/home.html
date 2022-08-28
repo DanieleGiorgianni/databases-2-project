@@ -57,22 +57,6 @@
 						</table>
 						<button style="margin: 5px auto 10px auto;" name="packageId" type="submit" th:value="${p.getId()}">Configure</button>
 					</form>
-				
-					<!-- <p><b><a class="no-style" th:href="@{/GoToConfigure(packageId=${p.id})}" th:text="${p.name}"></a></b></p>
-					<table style="border: 1px solid black; border-radius: 10px; text-align: center; margin: auto auto;">
-						<tr><th>Services</th></tr>
-					  	<tr th:each="s : ${p.getServices()}"><td>
-					  		<p th:text="${s.type}"></p>
-					  		<ul style="text-align: left; padding: 0px 20px 0px 40px;">
-					        	<li th:if="${s.getMinsnum() != 0}">Mins num: <span th:text="${s.minsnum}"></span></li>
-					            <li th:if="${s.getMinsfee() != 0}">Mins extra fee: <span th:text="${s.minsfee}"></span></li>
-					            <li th:if="${s.getSmsnum() != 0}">Sms num: <span th:text="${s.smsnum}"></span></li>
-					            <li th:if="${s.getSmsfee() != 0}">Sms extra fee: <span th:text="${s.smsfee}"></span></li>
-					            <li th:if="${s.getGiganum() != 0}">Giga num: <span th:text="${s.giganum}"></span></li>
-					            <li th:if="${s.getGigafee() != 0}">Giga extra fee: <span th:text="${s.gigafee}"></span></li>
-					        </ul>
-					  	</td></tr>
-					</table> -->
 					
 				</div>
 			</div>

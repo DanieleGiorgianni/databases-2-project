@@ -52,6 +52,10 @@ public class GoToBuy extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 	
+	/*
+	 * Once the user has configured a package, 
+	 * the method obtains all the information needed to complete the purchase via the buy page. 
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToBuy");
 		
@@ -84,7 +88,7 @@ public class GoToBuy extends HttpServlet {
 			validityFee = validityFeeService.findValidityFeeById(Integer.parseInt(request.getParameter("validityfeeId")));
 			startDate = Date.valueOf(request.getParameter("startdate"));
 		}
-		// An unlogged user tried to purchase a package.
+		// User purchases a previously configured package without logging in.
 		else {
 			packageId = Integer.parseInt((String)request.getSession().getAttribute("packageId"));
 			pack = packageService.findPackageById(packageId);
@@ -98,7 +102,7 @@ public class GoToBuy extends HttpServlet {
 			validityFee = validityFeeService.findValidityFeeById(Integer.parseInt((String) request.getSession().getAttribute("validityfeeId")));
 			startDate = Date.valueOf((String) request.getSession().getAttribute("startdate"));
 			
-			//Deleting session attributes.
+			// Deleting session attributes.
 			request.getSession().removeAttribute("orderNoLogin");
 			request.getSession().removeAttribute("packageId");
 			request.getSession().removeAttribute("productId");
@@ -109,7 +113,7 @@ public class GoToBuy extends HttpServlet {
 				System.out.println("> Deleting session attributes DONE");
 		}
 		
-		// Total monthly cost calculation
+		// Total monthly cost calculation.
 		monthlyfee += validityFee.getMonthlyfee();
 		if (!products.isEmpty()) {
 			for (Product p : products)

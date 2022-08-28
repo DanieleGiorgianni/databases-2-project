@@ -39,6 +39,10 @@ public class GoToFixBuy extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 	
+	/*
+	 * Selected a failed order on the home page, 
+	 * it is responsible for correctly setting the parameters to retry the purchase via the fixbuy page.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToFixBuy");
 		
@@ -51,9 +55,7 @@ public class GoToFixBuy extends HttpServlet {
 		Order failedOrder = null;
 		
 		failedOrderId = Integer.parseInt(request.getParameter("failedOrderId"));
-		//System.out.println("> failedOrderId = " + failedOrderId);
 		failedOrder = orderService.findOrderById(failedOrderId);
-		//System.out.println("> failedOrder = " + failedOrder);
 		
 		if (failedOrder != null) {
 			ctx.setVariable("failedOrder", failedOrder);

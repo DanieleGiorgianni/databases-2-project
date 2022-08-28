@@ -45,6 +45,10 @@ public class AlertService {
 		}
 	}
 	
+	/*
+	 * Method to create an alert over a user if he/she fails 3 payments.
+	 * An alert includes the total amount that needs to be paid and the date of the last failed payment.
+	 */
 	public void createAlert(User user, int amount, Timestamp lastDate) {
 		Alert alert = new Alert();
 		alert.setAmount(amount);
@@ -56,6 +60,10 @@ public class AlertService {
 		System.out.println("createAlert in AlertService DONE");
 	}
 	
+	/*
+	 * Method to update the total amount to be paid and the last failed payment of an alert given a user.
+	 * In this case the number of fails of a user is >= 3 (so, the user already has an alert).
+	 */
 	public void updateAlert(User user, int amount, Timestamp lastDate) {
 		Alert alert = findAlertByUser(user);
 		alert.setAmount(amount);
@@ -66,6 +74,9 @@ public class AlertService {
 		System.out.println("updateAlert in AlertService DONE");
 	}
 	
+	/*
+	 * Method to delete a user alert.
+	 */
 	public void deleteAlert(User user) {
 		Alert a = findAlertByUser(user);
 		
@@ -76,6 +87,10 @@ public class AlertService {
 		System.out.println ("deleteAlert in AlertService DONE");
 	}
 	
+	/*
+	 * Method invoked in case of failed order payment.
+	 * Responsible for handling an alert given a user, from creation to deletion.
+	 */
 	public void alertManager(User user, Timestamp lastDate) {		
 		List<Order>	rejectedOrders = new ArrayList<Order>();
 		rejectedOrders = orderService.findRejectedOrdersByUser(user);
@@ -83,7 +98,7 @@ public class AlertService {
 		int failsTot = 0;
 		int amount = 0;
 		
-		//System.out.println("> alertManager: List<Order> size = " + rejectedOrders.size());
+		// Calculation of number of failed orders and their amount.
 		for (Order rejectedOrder : rejectedOrders) {
 			if (!rejectedOrder.isValid()) {
 				failsTot += rejectedOrder.getFails();

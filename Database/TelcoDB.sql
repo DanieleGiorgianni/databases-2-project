@@ -17,7 +17,6 @@ USE `telcodb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-
 --
 -- Table structure for table `user`
 --
@@ -110,6 +109,7 @@ INSERT INTO `validityfee` VALUES (2, 24, 18);
 INSERT INTO `validityfee` VALUES (3, 36, 15);
 /*!40000 ALTER TABLE `validityfee` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `employee` (
 --
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1, 'max', 'max', 'max@mail.com');
+INSERT INTO `employee` VALUES (1, 'root', 'root', 'root@mail.com');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,29 +347,26 @@ CREATE TABLE `package_offers_validityfee` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+
 -- -----------------------------------------TRIGGERS-----------------------------------------------------
 -- Insolvent Users --
--- Event 1: new Order with payment failed
--- Event: Insert Order
+-- Event: new Order with payment failed 
 -- Condition: valid = FALSE
--- Action: Update user.insolvent
+-- Action: update user.insolvent
 
 
 
 -- Rejected Orders --
--- Event 1: new Order with validity = FALSE
--- Event: Insert Order
+-- Event 1: new Order 
 -- Condition: valid = FALSE
--- Action: Update number of fails
+-- Action: update number of fails
 
 
 
 -- Alerts --
--- Event 1: User failed payments 
--- Event: Insert Order
+-- Event 1: user failed payment related to a new Order
 -- Condition: valid = FALSE and fails = 3 (2+1)
--- Action: alert --> not possible to connect table order to alert
-
+-- Action: alert created
 
 
 --
@@ -383,8 +380,7 @@ CREATE TABLE `purchase_per_package` (
     PRIMARY KEY (`packageid`)
 );
 
--- Event 1: New package Creation
--- Event: New Package
+-- Event 1: new Package creation
 -- Condition: None
 -- Action: Insert values into purchase_per_package
 
@@ -394,9 +390,8 @@ FOR EACH ROW
 INSERT INTO purchase_per_package VALUES (new.id, 0);
 
 
--- Event 2: New order Creation
--- Event: Insert new order into Order table
--- Condition: Order must be valid
+-- Event 2: new Order creation
+-- Condition: order must be valid
 -- Action: Update purchase_per_package and increment packagepurchases
 delimiter //
 CREATE TRIGGER purchase_per_package_new_order
@@ -412,8 +407,7 @@ BEGIN
 END;
 //
 
--- Event 3: Failed order into valid
--- Event: Update existing order
+-- Event 3: Update existing Order
 -- Condition: old.valid=false and new.valid=true
 -- Action: Update purchase_per_package and increment packagepurchases
 delimiter //
@@ -447,10 +441,9 @@ CREATE TABLE `purchase_per_package_and_validityperiod` (
 );
 //
 
--- Event 1: New package Creation with validity period
--- Event: New Package with VP
--- Condition: None 
--- Action: Insert into package_offers_validityfee
+-- Event 1: new Package creation with validity period
+-- Condition: none 
+-- Action: insert into package_offers_validityfee
 delimiter //
 CREATE TRIGGER purchase_per_package_and_validityperiod
 AFTER INSERT ON `package_offers_validityfee`
@@ -462,10 +455,9 @@ BEGIN
 END;
 //
 
--- Event 2: New order WITH validity period 
--- Event: Insert new order into Order table 
--- Condition: Order must be valid
--- Action: Update purchase_per_package_and_validityperiod and increment packagepurchases 
+-- Event 2: new Order creation WITH validity period 
+-- Condition: order must be valid
+-- Action: update purchase_per_package_and_validityperiod and increment packagepurchases 
 delimiter //
 CREATE TRIGGER purchase_per_package_and_validityperiod_new_order
 AFTER INSERT ON `order`
@@ -481,10 +473,9 @@ BEGIN
 END;
 //
 
--- Event 3: Failed order into valid
--- Event: Update existing order
+-- Event 3: update existing Order
 -- Condition: old.valid=false and new.valid=true
--- Action: Update purchase_per_package and increment packagepurchases
+-- Action: update purchase_per_package and increment packagepurchases
 delimiter //
 CREATE TRIGGER purchase_per_package_and_validityperiod_fix_order
 AFTER UPDATE ON `order`
@@ -517,10 +508,9 @@ CREATE TABLE `total_sales_per_package` (
 );
 //
 
--- Event 1: New package puchase with validity period
--- Event: Insert Package
--- Condition: None
--- Action: Insert values into total_sales_per_package
+-- Event 1: new Package puchase with validity period
+-- Condition: none
+-- Action: insert values into total_sales_per_package
 delimiter //
 CREATE TRIGGER total_sales_per_package_new_package
 AFTER INSERT ON `package`
@@ -529,10 +519,9 @@ INSERT INTO total_sales_per_package VALUES (new.id, 0, 0);
 //
 
 
--- Event 2: New order with validity period
--- Event: Insert Order
--- Condition: Order must be valid
--- Action: Update total_sales_per_package 
+-- Event 2: new Order with validity period
+-- Condition: order must be valid
+-- Action: update total_sales_per_package 
 delimiter //
 CREATE TRIGGER total_sales_per_package_new_order
 AFTER INSERT ON `order`
@@ -554,10 +543,9 @@ BEGIN
 END;
 //
 
--- Event 3: Order from invalid to valid
--- Event: Update Order
+-- Event 3: update existing Order with validity period
 -- Condition: order invalid become valid
--- Action: Update total_sales_per_package 
+-- Action: update total_sales_per_package 
 delimiter //
 CREATE TRIGGER total_sales_per_package_fix_order
 AFTER UPDATE ON `order`
@@ -594,13 +582,12 @@ CREATE TABLE `average_optional_products_per_package` (
     `totalorder` INT DEFAULT NULL,
     `averageproduct` FLOAT DEFAULT NULL,
     PRIMARY KEY (`packageid`)
-)
+);
 //
 
--- Event 1: new Package Creation
--- Event: New Package is created
+-- Event 1: new Package creation
 -- Condition: none
--- Action: Insert values into average_optional_products_per_package
+-- Action: insert values into average_optional_products_per_package
 delimiter //
 CREATE TRIGGER average_optional_products_per_package_new_package
 AFTER INSERT ON `package_contains_product`
@@ -611,10 +598,9 @@ THEN
 END IF;
 //
 
--- Event 2: new Order with/without products
--- Event: new Order is created
--- Condition: Order MUST be valid
--- Action:  Update average_optional_products_per_package
+-- Event 2: new Order creation (with/without products)
+-- Condition: order must be valid
+-- Action:  update average_optional_products_per_package
 delimiter //
 CREATE TRIGGER average_optional_products_per_package_new_order
 AFTER INSERT ON `order`
@@ -639,10 +625,9 @@ BEGIN
 END;
 //
 
--- Event 3: Order with/without products from invalid to valid
--- Event: Update Order
--- Condition: order.valid from invalid to valid
--- Action:  Update average_optional_products_per_package
+-- Event 3:  update existing Order with/without products
+-- Condition: order invalid becomes valid
+-- Action:  update average_optional_products_per_package
 delimiter //
 CREATE TRIGGER average_optional_products_per_package_fix_order
 AFTER UPDATE ON `order`
@@ -680,24 +665,22 @@ CREATE TABLE `optional_product_best_seller` (
     `productid` INT NOT NULL,
     `productsales` INT DEFAULT NULL,
     PRIMARY KEY (`productid`)
-)
+);
 //
 
--- Event 1: new Product Creation
--- Event: new product is created
+-- Event 1: new Product creation
 -- Condition: none
--- Action: Insert new Product into optional_product_best_seller
+-- Action: insert new Product into optional_product_best_seller
 delimiter //
 CREATE TRIGGER optional_product_best_seller_new_product
 AFTER INSERT ON `product` 
 FOR EACH ROW 
-INSERT INTO optional_product_best_seller VALUES (new.id, 0)
+INSERT INTO optional_product_best_seller VALUES (new.id, 0);
 //
 
--- Event 2: new Order WITH Product(s) Creation
--- Event : Insert new order into Order table
+-- Event 2: new Order WITH Product(s) creation
 -- Condition : order must be valid
--- Action : Update optional_product_best_seller in particular increment the number of productsales
+-- Action : update optional_product_best_seller in particular increment the number of productsales
 delimiter //
 CREATE TRIGGER optional_product_best_seller_new_order
 AFTER INSERT ON `order_comprises_product`
@@ -714,10 +697,9 @@ BEGIN
 END;
 //
 
--- Event 3: Order WITH Product(s) became valid
--- Event : Update Order 
+-- Event 3: update existing Order WITH Product(s) 
 -- Condition : order from invalid to valid
--- Action : Update optional_product_best_seller in particular increment the number of productsales
+-- Action : update optional_product_best_seller in particular increment the number of productsales
 delimiter //
 CREATE TRIGGER optional_product_best_seller_fix_order
 AFTER UPDATE ON `order`

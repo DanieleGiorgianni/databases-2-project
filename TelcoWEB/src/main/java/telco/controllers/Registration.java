@@ -25,7 +25,7 @@ public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 
-	@EJB (name = "telco.services/UserService") // Creates a reference in component namespace
+	@EJB (name = "telco.services/UserService") // Creates a reference in component namespace.
 	private UserService userService;
 
 	public Registration() {
@@ -41,6 +41,11 @@ public class Registration extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 	
+	/*
+	 * Method that deals with user registration, via the relevant EJB; 
+	 * in the case of successful registration the user is redirected to the login page 
+	 * while in the case of failed registration the same page is reloaded with an error message.
+	 */
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = null;
 		String password = null;

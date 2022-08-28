@@ -28,6 +28,10 @@ public class EmployeeService {
 		return em.createNamedQuery("Employee.findEmployeeByName", Employee.class).setParameter(1, employeename).getSingleResult();
 	}
 	
+	/*
+	 * Method to check employee credentials (username and password).
+	 * It returns an Employee object if credentials are valid, null otherwise.
+	 */
 	public Employee login(String username, String password) throws CredentialsException, NonUniqueResultException{
 		List<Employee> employeeList = null;
 		

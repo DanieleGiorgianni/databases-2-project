@@ -47,6 +47,10 @@ public class GoToHome extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
+	/*
+	 * Method that redirects to the home page, providing it with all available packages and 
+	 * any orders failed by the user (if logged in).
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToHome");
 		

@@ -53,6 +53,9 @@ public class FixOrder extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 	
+	/*
+	 * Method for handling payment of a previously failed order.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in FixOrder");
 		

@@ -52,6 +52,9 @@ public class UserService {
 		return em.createNamedQuery("User.findUserByName", User.class).setParameter(1, username).getSingleResult();
 	}
 
+	/*
+	 * Method to register a new user by checking whether username and email are already in the database.
+	 */
 	public String registration(String username, String email, String password) throws CredentialsException{
 		List<User> userList = null;
 		
@@ -87,6 +90,9 @@ public class UserService {
 		}
 	}
 	
+	/*
+	 * Method to login a user.
+	 */
 	public User login(String username, String password) throws CredentialsException, NonUniqueResultException{
 		List<User> userList = null;
 		
@@ -108,12 +114,16 @@ public class UserService {
 		}
 	}
 	
+	/*
+	 * Method to check whether a user submits unpaid orders.
+	 * If so, he/she will be set as insolvent.
+	 */
 	public void insolventManager(User user) {
 		User usr = findUserById(user.getUserid());
 		List<Order>	rejectedOrders = new ArrayList<Order>();
 		rejectedOrders = orderService.findRejectedOrdersByUser(usr);
 		
-		//System.out.println("> insolventManager: List<Order> size = " + rejectedOrders.size());
+		// If there is even one order with a failed payment the user is set as insolvent.
 		for (Order rejectedOrder : rejectedOrders) {
 			if (rejectedOrder.getFails() != 0) {
 				usr.setInsolvent(true);

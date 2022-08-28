@@ -24,6 +24,9 @@ public class ProductCreation extends HttpServlet {
 	@EJB (name = "telco.services/ProductService")
 	private ProductService productService;
 	
+	/*
+	 * Method that extracts the necessary information to be passed to the appropriate ejb for product creation.
+	 */
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("productname");
 		Integer monthlyfee = Integer.parseInt(request.getParameter("productmonthlyfee"));

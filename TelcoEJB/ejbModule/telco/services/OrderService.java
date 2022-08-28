@@ -56,6 +56,9 @@ public class OrderService {
 		}
 	}
 
+	/*
+	 * Method for creating an order related to a user.
+	 */
 	public Order createOrder(int monthlyfee, Timestamp purchasedate, Date startdate, int fails, boolean valid,
 			User user, Package pack, ValidityFee validityfee, List<Product> products) {
 		Order order = new Order();
@@ -75,6 +78,10 @@ public class OrderService {
 		return order;
 	}
 	
+	/*
+	 * Method to update the parameters of a previously failed order given the updated order 
+	 * (which can be either successfully purchased or failed again).
+	 */
 	public void fixOrder(Order fixOrder) {
 		Order order = findOrderById(fixOrder.getId());
 		order.setPurchasedate(fixOrder.getPurchasedate());

@@ -48,6 +48,9 @@ public class SasService {
 		}
 	}
 	
+	/*
+	 * Method for creating a service activation schedule given an order, its deactivation date and its related user.
+	 */
 	public void createSas(Date deactivationDate, Order order, User user) {
 		Sas sas = new Sas();
 		sas.setDeactivationdate(deactivationDate);

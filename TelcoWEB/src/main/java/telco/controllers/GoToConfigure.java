@@ -43,6 +43,10 @@ public class GoToConfigure extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
+	/*
+	 * Once a package has been selected by the user, the method will take care of offering the configuration of it 
+	 * (validity, optional products and the activation date) via the related page.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToConfigure");
 		
@@ -61,7 +65,7 @@ public class GoToConfigure extends HttpServlet {
 		products = packageService.findProductsByPackageId(packageId);
 		validityFees = packageService.findValidityFeesByPackageId(packageId);
 		
-		if (packageId != null && pack != null && validityFees != null) { // No check on products because a package can have no (optional) products
+		if (packageId != null && pack != null && validityFees != null) { // No check on products because a package can have no (optional) products.
 			ctx.setVariable("package", pack);
 			ctx.setVariable("products", products);
 			ctx.setVariable("validityfees", validityFees);

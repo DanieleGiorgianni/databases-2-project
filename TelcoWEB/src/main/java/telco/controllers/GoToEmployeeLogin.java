@@ -32,6 +32,9 @@ public class GoToEmployeeLogin extends HttpServlet{
 		templateResolver.setSuffix (".html");
 	}
 	
+	/*
+	 * Method that redirects to the login page for an employee.
+	 */
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println ("doGet in GoToEmployeeLogin");
 		

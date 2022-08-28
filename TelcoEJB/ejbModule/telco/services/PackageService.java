@@ -63,6 +63,9 @@ public class PackageService {
 		return em.find(Package.class, packageId).getValidityFees();
 	}
 	
+	/*
+	 * Method for creating a package.
+	 */
 	public String createPackage(String name, int employeeId, String[] services, String[] products, String[] validity) {
 		// Check if already exists a package with the same name.
 		List<Package> packs = new ArrayList<Package>();

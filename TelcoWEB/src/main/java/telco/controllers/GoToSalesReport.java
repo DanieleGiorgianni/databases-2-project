@@ -60,6 +60,10 @@ public class GoToSalesReport extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 
+	/*
+	 * Method that retrieves all the information to be shown in the report page 
+	 * and finally redirects to that page.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToSalesReport");
 		

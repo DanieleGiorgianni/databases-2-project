@@ -69,7 +69,12 @@ public class ManageOrder extends HttpServlet{
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
 	}
-	
+	 /*
+	  * Method that takes charge of the correct creation of the order. 
+	  * In case of valid payment it sets the deactivation date and calls sas creation. 
+	  * Otherwise, it still creates the order (with valid to false) 
+	  * requiring the user to be set as insolvent and check alert status.
+	  */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in ManageOrder");
 		

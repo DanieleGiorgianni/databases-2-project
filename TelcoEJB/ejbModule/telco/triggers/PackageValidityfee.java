@@ -31,7 +31,7 @@ public class PackageValidityfee implements Serializable {
 	public int hashCode() {
 		return Objects.hash(packageid, validityfeeid);
 	}
-	//Auto-generated method
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object)

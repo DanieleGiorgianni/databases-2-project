@@ -42,7 +42,11 @@ public class EmployeeLogin extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 	
-	
+	/*
+	 * Method checks if the credentials entered are correct (using the relevant EJB), 
+	 * if so it either redirects to the employee's home page; 
+	 * if not, it will reload the login page with an error message.
+	 */
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = null;
 		String password  = null;
@@ -66,7 +70,7 @@ public class EmployeeLogin extends HttpServlet {
 		}
 		
 		try {
-			employee = employeeService.login(username,password);
+			employee = employeeService.login(username, password);
 			
 			if (employee != null) {
 				request.getSession().setAttribute("employee", employee);

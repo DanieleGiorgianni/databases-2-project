@@ -32,6 +32,11 @@ public class GoToIndex extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 	
+	/*
+	 * Method used when a non-logged-in user attempts to purchase a package, 
+	 * saves the configuration of that package and creates its session attributes so that, 
+	 * once logged in, he or she can terminate the purchase.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet in GoToIndex");
 		
@@ -45,15 +50,6 @@ public class GoToIndex extends HttpServlet {
 		String[] productId = request.getParameterValues("productId");
 		String validityfeeId = request.getParameter("validityfeeId");
 		String startdate = request.getParameter("startdate");
-		
-		// TODO (Remove) Print test
-		System.out.println("> packageId: " + packageId);
-		if (productId != null) {
-			for (String p : productId)
-				System.out.println("> productId: " + p);
-		}
-		System.out.println("> validityfeeId: " + validityfeeId);
-		System.out.println("> startdate: " + startdate);
 		
 		//Setting session attributes
 		request.getSession().setAttribute("orderNoLogin", "yes");

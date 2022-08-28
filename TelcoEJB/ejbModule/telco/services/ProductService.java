@@ -43,6 +43,9 @@ public class ProductService {
 		return em.createNamedQuery("Product.findProductByName", Product.class).setParameter(1, name).getSingleResult();
 	}
 	
+	/*
+	 * Method for creating an optional product.
+	 */
 	public String createProduct(String name, int monthlyfee, int employeeId) {
 		// Check if already exists a product with the same name.
 		List<Product> products = new ArrayList<Product>();
